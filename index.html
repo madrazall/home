@@ -521,63 +521,17 @@
   .c-value a:hover { opacity: 0.75; }
 
   /* form */
-  .contact-form { display: flex; flex-direction: column; gap: 16px; }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  .field { display: flex; flex-direction: column; gap: 6px; }
-  .field label {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.62rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--gray);
-  }
-  .field input, .field select, .field textarea {
-    background: var(--dark-3);
-    border: 1px solid rgba(90,99,112,0.3);
-    color: var(--white);
-    padding: 12px 16px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.88rem;
-    font-weight: 300;
-    outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    width: 100%;
-    -webkit-appearance: none;
-  }
-  .field select { cursor: pointer; }
-  .field select option { background: var(--dark-3); }
-  .field input:focus, .field select:focus, .field textarea:focus {
-    border-color: var(--cyan);
-    box-shadow: 0 0 0 1px rgba(0,200,240,0.15);
-  }
-  .field textarea { resize: vertical; min-height: 110px; }
-  ::placeholder { color: var(--gray); opacity: 0.5; }
+<form action="https://api.web3forms.com/submit" method="POST">
 
-  .form-note {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.62rem;
-    letter-spacing: 0.1em;
-    color: var(--gray);
-    line-height: 1.6;
-  }
-  .form-note span { color: var(--cyan); }
+    <input type="hidden" name="access_key" value="912b15f1-239b-423a-9e46-5359e17110a0">
 
-  .submit-btn {
-    background: var(--cyan);
-    color: var(--black);
-    border: none;
-    padding: 15px 40px;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.78rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    cursor: pointer;
-    font-weight: 500;
-    align-self: flex-start;
-    transition: box-shadow 0.2s, transform 0.15s;
-  }
-  .submit-btn:hover { box-shadow: var(--cyan-glow); transform: translateY(-2px); }
+    <input type="text" name="name" required>
+    <input type="email" name="email" required>
+    <textarea name="message" required></textarea>
+    <input type="hidden" name="redirect" value="https://web3forms.com/success">
+    <button type="submit">Submit Form</button>
 
+</form>
   /* ── FOOTER ── */
   footer {
     background: var(--black);
