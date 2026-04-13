@@ -797,6 +797,7 @@
 </section>
 
 <!-- CONTACT -->
+<!-- CONTACT -->
 <section id="contact" class="section-pad">
   <div class="contact-layout">
     <div class="contact-info">
@@ -808,7 +809,7 @@
           <div class="c-dot"></div>
           <div>
             <div class="c-label">Email</div>
-            <div class="c-value"><a href="mailto:madrazodarcy@gmail.com">madrazodarcy@gmail.com</a></div>
+            <div class="c-value"><a href="mailto:[your@email.com]">[your@email.com]</a></div>
           </div>
         </div>
         <div class="c-item">
@@ -866,6 +867,81 @@
     </div>
   </div>
 </section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-name">MADRAZALL BUILT</div>
+    <div class="footer-copy">© 2025 Madrazall Built — Hartford County, CT. All rights reserved.</div>
+  </div>
+  <ul class="footer-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  async function handleSubmit() {
+    const btn = document.querySelector('.submit-btn');
+    const fname = document.getElementById('fname').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const service = document.getElementById('service').value;
+
+    if (!fname || !email || !service) {
+      btn.textContent = 'Fill in required fields';
+      btn.style.background = '#e05555';
+      btn.style.color = '#fff';
+      setTimeout(() => { btn.textContent = 'Send It →'; btn.style.background = ''; btn.style.color = ''; }, 2500);
+      return;
+    }
+
+    const data = {
+      access_key: "912b15f1-239b-423a-9e46-5359e17110a0",
+      subject: "New Project Inquiry — Madrazall Built",
+      name: fname + ' ' + document.getElementById('lname').value.trim(),
+      email: email,
+      company: document.getElementById('company').value.trim(),
+      service: service,
+      message: document.getElementById('message').value.trim()
+    };
+
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      if (res.ok) {
+        btn.textContent = 'Message Sent ✓';
+        btn.style.background = '#1a6e52';
+        btn.style.color = '#e8edf2';
+      } else {
+        throw new Error('Failed');
+      }
+    } catch {
+      btn.textContent = 'Something went wrong — try emailing directly';
+      btn.style.background = '#e05555';
+      btn.style.color = '#fff';
+      btn.disabled = false;
+    }
+  }
+</script>
+</body>
+</html>
+
 
 <!-- FOOTER -->
 <footer>
