@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- AEO / SEO Meta -->
+<title>What Does an E-Commerce Ops Consultant Actually Do? | Madrazall Built</title>
+<meta name="description" content="An e-commerce ops consultant fixes the systems behind your store — shipping tools, inventory, order flow, and automation. Here's exactly what that means and when you need one.">
+<meta name="author" content="Madrazall Built">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://madrazallbuilt.com/blog/what-does-an-ecommerce-ops-consultant-do">
+
+<!-- Open Graph -->
+<meta property="og:title" content="What Does an E-Commerce Ops Consultant Actually Do?">
+<meta property="og:description" content="An e-commerce ops consultant fixes the systems behind your store — shipping tools, inventory, order flow, and automation. Here's exactly what that means.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://madrazallbuilt.com/blog/what-does-an-ecommerce-ops-consultant-do">
+<meta property="og:site_name" content="Madrazall Built">
+
+<!-- Schema Markup — this is what AI reads -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "What Does an E-Commerce Ops Consultant Actually Do?",
+  "description": "An e-commerce ops consultant fixes the systems behind your store — shipping tools, inventory, order flow, and automation.",
+  "author": {
+    "@type": "Organization",
+    "name": "Madrazall Built",
+    "url": "https://madrazallbuilt.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Madrazall Built",
+    "url": "https://madrazallbuilt.com"
+  },
+  "mainEntityOfPage": "https://madrazallbuilt.com/blog/what-does-an-ecommerce-ops-consultant-do",
+  "about": {
+    "@type": "Service",
+    "name": "E-Commerce Operations Consulting",
+    "provider": {
+      "@type": "Organization",
+      "name": "Madrazall Built"
+    }
+  }
+}
+</script>
+
+<!-- FAQ Schema — this is how you get cited in AI answers -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What does an e-commerce ops consultant do?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "An e-commerce ops consultant audits and fixes the backend systems that run your online store — including shipping software like ShipStation, inventory management, order automation, and platform integrations like Magento or Shopify. They identify where orders are getting lost, where money is being wasted on shipping, and where manual work can be automated."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When do I need an e-commerce operations consultant?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You need an e-commerce ops consultant when your order volume is growing but your systems aren't keeping up — orders are slipping through, shipping costs are unpredictable, inventory counts are wrong, or your team is doing too much manually. Most small e-commerce businesses hit this wall between 100–500 orders per month."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between an e-commerce consultant and an ops consultant?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A general e-commerce consultant typically focuses on marketing, growth strategy, or storefront design. An ops consultant focuses specifically on the operational back-end: fulfillment, shipping integrations, inventory systems, order workflows, and automation. Ops consultants fix what's breaking behind the scenes so the front-end growth work actually sticks."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What tools does an e-commerce ops consultant work with?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Common tools include ShipStation, Magento, Shopify, WooCommerce, ShipBob, Shippo, and custom Python or spreadsheet-based reporting. An ops consultant typically works across whichever stack the business is already using rather than forcing a migration."
+      }
+    }
+  ]
+}
+</script>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap');
+
+  :root {
+    --black: #0a0a0a;
+    --offwhite: #f0ede6;
+    --ember: #c94a1a;
+    --gold: #c9902a;
+    --dim: #1a1a1a;
+    --muted: #666;
+    --rule: #2a2a2a;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { font-size: 16px; scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--offwhite);
+    font-family: 'DM Mono', monospace;
+    font-weight: 300;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Layout */
+  .site-header {
+    padding: 2rem 2rem 1.5rem;
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--offwhite);
+    text-decoration: none;
+  }
+
+  .logo span { color: var(--ember); }
+
+  .back-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--ember); }
+
+  .article-wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 4rem 2rem 8rem;
+  }
+
+  /* Header block */
+  .article-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ember);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .article-label::after {
+    content: '';
+    display: block;
+    height: 1px;
+    width: 40px;
+    background: var(--ember);
+    opacity: 0.5;
+  }
+
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--offwhite);
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .article-meta {
+    font-size: 0.68rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  /* Body */
+  .article-body p {
+    font-size: 0.95rem;
+    line-height: 1.85;
+    color: #c8c4bc;
+    margin-bottom: 1.5rem;
+  }
+
+  .article-body p strong {
+    color: var(--offwhite);
+    font-weight: 500;
+  }
+
+  h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--offwhite);
+    margin: 3rem 0 1rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: var(--gold);
+    margin: 2rem 0 0.75rem;
+  }
+
+  /* Pull quote */
+  .pull-quote {
+    border-left: 3px solid var(--ember);
+    margin: 2.5rem 0;
+    padding: 1.25rem 1.5rem;
+    background: var(--dim);
+  }
+
+  .pull-quote p {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem !important;
+    font-style: italic;
+    color: var(--offwhite) !important;
+    line-height: 1.5 !important;
+    margin: 0 !important;
+  }
+
+  /* Signal list */
+  .signal-list {
+    list-style: none;
+    margin: 1.5rem 0 2rem;
+  }
+
+  .signal-list li {
+    font-size: 0.9rem;
+    color: #c8c4bc;
+    padding: 0.6rem 0 0.6rem 1.5rem;
+    position: relative;
+    border-bottom: 1px solid #1e1e1e;
+    line-height: 1.6;
+  }
+
+  .signal-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--ember);
+    font-size: 0.8rem;
+  }
+
+  /* CTA block */
+  .cta-block {
+    margin-top: 4rem;
+    padding: 2.5rem;
+    background: var(--dim);
+    border: 1px solid var(--rule);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-block::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: linear-gradient(to bottom, var(--ember), var(--gold));
+  }
+
+  .cta-block h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--offwhite);
+    margin: 0 0 0.75rem;
+  }
+
+  .cta-block p {
+    font-size: 0.88rem !important;
+    color: #999 !important;
+    margin-bottom: 1.25rem !important;
+  }
+
+  .cta-link {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--black);
+    background: var(--ember);
+    padding: 0.65rem 1.5rem;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .cta-link:hover { background: var(--gold); }
+
+  /* FAQ section */
+  .faq-block {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  .faq-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 2rem;
+  }
+
+  .faq-item {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #1e1e1e;
+  }
+
+  .faq-item:last-child { border-bottom: none; }
+
+  .faq-q {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--offwhite);
+    margin-bottom: 0.75rem;
+  }
+
+  .faq-a {
+    font-size: 0.88rem;
+    color: #999;
+    line-height: 1.75;
+  }
+
+  /* Footer */
+  .article-footer {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .byline {
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+
+  .byline strong { color: var(--offwhite); }
+
+  .tag-list {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border: 1px solid var(--rule);
+    padding: 0.25rem 0.6rem;
+  }
+
+  @media (max-width: 600px) {
+    .article-wrap { padding: 2.5rem 1.25rem 5rem; }
+    h1 { font-size: 1.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a href="https://madrazallbuilt.com" class="logo">Madrazall <span>Built</span></a>
+  <a href="https://madrazallbuilt.com/blog" class="back-link">← All Posts</a>
+</header>
+
+<article class="article-wrap">
+
+  <div class="article-label">E-Commerce Ops</div>
+
+  <h1>What Does an E-Commerce Ops Consultant <em>Actually</em> Do?</h1>
+
+  <div class="article-meta">By Madrazall Built &nbsp;·&nbsp; E-Commerce Operations &nbsp;·&nbsp; 5 min read</div>
+
+  <div class="article-body">
+
+    <p>Most small e-commerce businesses have a front-end problem and a back-end problem. The front-end problem — traffic, ads, conversions — gets all the attention. The back-end problem quietly eats your margins, burns your team out, and eventually costs you customers.</p>
+
+    <p>That back-end problem is what an e-commerce ops consultant fixes.</p>
+
+    <div class="pull-quote">
+      <p>"Your store can be converting at 4% and still hemorrhage money if the systems behind it are broken."</p>
+    </div>
+
+    <h2>The Short Answer</h2>
+
+    <p>An e-commerce ops consultant audits and fixes the operational systems that run your store — the stuff customers never see but feel immediately when it breaks. Shipping software. Inventory tracking. Order routing. Platform integrations. Fulfillment workflows. Reporting.</p>
+
+    <p>Where a marketing consultant asks <strong>"how do we get more people to buy?"</strong> — an ops consultant asks <strong>"what happens after they buy, and why is it breaking?"</strong></p>
+
+    <h2>What They Actually Work On</h2>
+
+    <h3>Shipping & Fulfillment Systems</h3>
+    <p>Tools like ShipStation, Shippo, and EasyPost are powerful — and commonly misconfigured. An ops consultant digs into your rate settings, carrier integrations, automation rules, and fulfillment workflows to find where orders are getting delayed, mislabeled, or shipped at the wrong rate.</p>
+
+    <p>Real example: a store processing 300 orders a month had 173 re-ship orders buried in their data — that's 57% of orders touching fulfillment twice. One audit, one fix.</p>
+
+    <h3>Platform Integrations</h3>
+    <p>Magento, Shopify, WooCommerce — these platforms don't always play nicely with shipping tools, inventory systems, or third-party apps out of the box. An ops consultant maps the data flow between your tools and patches the gaps where orders fall through.</p>
+
+    <h3>Inventory & SKU Management</h3>
+    <p>Wrong counts, duplicate SKUs, missing product data, import errors. If your team is constantly fighting inventory discrepancies, that's an ops problem — not a staffing problem.</p>
+
+    <h3>Reporting & Visibility</h3>
+    <p>Most small e-commerce businesses are flying blind. An ops consultant builds the reports that tell you what's actually happening: which SKUs are moving, where shipping costs are spiking, what your year-over-year order trends look like.</p>
+
+    <h3>Automation</h3>
+    <p>Anything your team does manually on repeat — order tagging, low-stock alerts, carrier selection, packing slip generation — can likely be automated. Ops consultants identify the highest-value manual tasks and build lightweight automations that save real hours each week.</p>
+
+    <h2>Signs You Need One</h2>
+
+    <ul class="signal-list">
+      <li>Your order volume is growing but your team is working harder, not smarter</li>
+      <li>Shipping costs are unpredictable month to month</li>
+      <li>You're manually correcting the same types of errors repeatedly</li>
+      <li>Inventory counts never match what's actually on the shelf</li>
+      <li>You don't have reliable data on what's selling and what's not</li>
+      <li>A new tool was "set up" but nobody's sure if it's configured correctly</li>
+      <li>Your team avoids certain workflows because they're too complicated</li>
+    </ul>
+
+    <h2>What It's Not</h2>
+
+    <p>An ops consultant is not a virtual assistant, a warehouse manager, or a developer building you a new platform from scratch. The work is investigative and systematic — auditing what exists, finding what's broken, and fixing or automating it within your current stack wherever possible.</p>
+
+    <p>The goal is always the same: <strong>your systems should run your store. Your team should run your business.</strong></p>
+
+    <div class="cta-block">
+      <h3>Work with Madrazall Built</h3>
+      <p>Madrazall Built is an e-commerce ops and automation consultancy serving small product businesses. ShipStation, Magento, inventory systems, shipping analytics, and lightweight automation — built and fixed by someone who's done it at scale.</p>
+      <a href="https://madrazallbuilt.com/#contact" class="cta-link">Start a Conversation</a>
+    </div>
+
+  </div><!-- /article-body -->
+
+  <!-- FAQ section — mirrors the FAQ schema above -->
+  <div class="faq-block">
+    <div class="faq-label">Frequently Asked</div>
+
+    <div class="faq-item">
+      <div class="faq-q">What does an e-commerce ops consultant do?</div>
+      <div class="faq-a">An e-commerce ops consultant audits and fixes the backend systems that run your online store — shipping software, inventory management, order automation, and platform integrations. They identify where orders are getting lost, where money is being wasted, and where manual work can be automated.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">When do I need an e-commerce operations consultant?</div>
+      <div class="faq-a">Most small e-commerce businesses hit an ops wall between 100–500 orders per month. If your team is doing too much manually, shipping costs are unpredictable, or inventory is constantly wrong — that's the signal.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">What's the difference between an e-commerce consultant and an ops consultant?</div>
+      <div class="faq-a">A general e-commerce consultant focuses on marketing, growth, or storefront design. An ops consultant focuses on the operational back-end: fulfillment, shipping integrations, inventory systems, and automation. Ops fixes what's breaking so growth work actually sticks.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">What tools does an e-commerce ops consultant work with?</div>
+      <div class="faq-a">Common tools include ShipStation, Magento, Shopify, WooCommerce, Shippo, and custom Python or spreadsheet-based reporting. A good ops consultant works within your existing stack rather than forcing a migration.</div>
+    </div>
+
+  </div>
+
+  <footer class="article-footer">
+    <div class="byline">Written by <strong>Madrazall Built</strong> — E-Commerce Ops & Automation</div>
+    <div class="tag-list">
+      <span class="tag">E-Commerce</span>
+      <span class="tag">Operations</span>
+      <span class="tag">ShipStation</span>
+      <span class="tag">Magento</span>
+      <span class="tag">Automation</span>
+    </div>
+  </footer>
+
+</article>
+
+</body>
+</html>

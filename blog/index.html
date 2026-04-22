@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — Madrazall Built</title>
+<meta name="description" content="E-commerce ops, shipping systems, automation, and small business workflows — written by Madrazall Built.">
+<meta name="author" content="Madrazall Built">
+<link rel="canonical" href="https://madrazall.github.io/home/blog/">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "Madrazall Built — Blog",
+  "url": "https://madrazall.github.io/home/blog/",
+  "description": "E-commerce ops, shipping systems, automation, and small business workflows.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Madrazall Built",
+    "url": "https://madrazall.github.io/home/"
+  }
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --black: #080808;
+    --offwhite: #f0ede6;
+    --ember: #c94a1a;
+    --gold: #c9902a;
+    --dim: #111;
+    --muted: #555;
+    --rule: #1e1e1e;
+    --card-bg: #0f0f0f;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--offwhite);
+    font-family: 'DM Mono', monospace;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+
+  /* NAV — matches existing site */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(8,8,8,0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 2.5rem;
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 0.95rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--offwhite);
+    text-decoration: none;
+    line-height: 1.1;
+  }
+
+  .nav-logo span { color: var(--ember); }
+  .nav-logo small {
+    display: block;
+    font-size: 0.5rem;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover,
+  .nav-links a.active { color: var(--offwhite); }
+
+  .nav-cta {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--black) !important;
+    background: var(--ember);
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .nav-cta:hover { background: var(--gold) !important; color: var(--black) !important; }
+
+  /* Page header */
+  .blog-header {
+    padding: 5rem 2.5rem 3rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .page-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ember);
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .page-label::after {
+    content: '';
+    display: block;
+    height: 1px;
+    width: 32px;
+    background: var(--ember);
+    opacity: 0.5;
+  }
+
+  .blog-header h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+
+  .blog-header p {
+    font-size: 0.88rem;
+    color: var(--muted);
+    max-width: 480px;
+    line-height: 1.75;
+  }
+
+  /* Grid */
+  .blog-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem 2.5rem 6rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1px;
+    background: var(--rule);
+  }
+
+  /* Card */
+  .post-card {
+    background: var(--card-bg);
+    padding: 2.5rem 2rem;
+    text-decoration: none;
+    display: block;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.2s;
+  }
+
+  .post-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 0; height: 2px;
+    background: var(--ember);
+    transition: width 0.3s ease;
+  }
+
+  .post-card:hover { background: #141414; }
+  .post-card:hover::before { width: 100%; }
+
+  .post-category {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ember);
+    margin-bottom: 1rem;
+  }
+
+  .post-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.35rem;
+    font-weight: 400;
+    color: var(--offwhite);
+    line-height: 1.3;
+    margin-bottom: 1rem;
+  }
+
+  .post-excerpt {
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .post-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    color: #3a3a3a;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  .read-more {
+    color: var(--ember);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .post-card:hover .read-more { color: var(--gold); }
+
+  /* Coming soon card */
+  .post-card.coming-soon {
+    opacity: 0.35;
+    pointer-events: none;
+  }
+
+  .coming-soon .post-title { font-style: italic; }
+
+  .soon-badge {
+    display: inline-block;
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border: 1px solid var(--rule);
+    color: var(--muted);
+    padding: 0.2rem 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  /* Footer */
+  footer {
+    border-top: 1px solid var(--rule);
+    padding: 2rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  footer p {
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+
+  footer a {
+    color: var(--ember);
+    text-decoration: none;
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+  }
+
+  @media (max-width: 640px) {
+    nav { padding: 1rem 1.25rem; }
+    .nav-links { display: none; }
+    .blog-header { padding: 3rem 1.25rem 2rem; }
+    .blog-grid { padding: 2rem 0 4rem; grid-template-columns: 1fr; }
+    footer { padding: 1.5rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../" class="nav-logo">
+    Madrazall <span>Built</span>
+    <small>Web · Ops · Systems</small>
+  </a>
+  <ul class="nav-links">
+    <li><a href="../#services">Services</a></li>
+    <li><a href="../#about">About</a></li>
+    <li><a href="../#process">Process</a></li>
+    <li><a href="./index.html" class="active">Blog</a></li>
+    <li><a href="../#contact" class="nav-cta">Get In Touch</a></li>
+  </ul>
+</nav>
+
+<header class="blog-header">
+  <div class="page-label">Field Notes</div>
+  <h1>The Blog</h1>
+  <p>E-commerce ops, shipping systems, automation, and small business workflows — written from the inside out.</p>
+</header>
+
+<main class="blog-grid">
+
+  <!-- Post 01 — LIVE -->
+  <a href="./what-does-an-ecommerce-ops-consultant-do.html" class="post-card">
+    <div class="post-category">E-Commerce Ops</div>
+    <h2 class="post-title">What Does an E-Commerce Ops Consultant Actually Do?</h2>
+    <p class="post-excerpt">Your store can be converting at 4% and still hemorrhage money if the systems behind it are broken. Here's what ops consulting actually means — and when you need it.</p>
+    <div class="post-meta">
+      <span>Madrazall Built · 5 min read</span>
+      <span class="read-more">Read →</span>
+    </div>
+  </a>
+
+  <!-- Post 02 — Coming Soon -->
+  <div class="post-card coming-soon">
+    <div class="soon-badge">Coming Soon</div>
+    <div class="post-category">ShipStation</div>
+    <h2 class="post-title">Why Are My ShipStation Shipping Costs Wrong?</h2>
+    <p class="post-excerpt">Misconfigured rate tables, carrier billing mismatches, and the audit that finds them.</p>
+    <div class="post-meta">
+      <span>Madrazall Built</span>
+    </div>
+  </div>
+
+  <!-- Post 03 — Coming Soon -->
+  <div class="post-card coming-soon">
+    <div class="soon-badge">Coming Soon</div>
+    <div class="post-category">Magento</div>
+    <h2 class="post-title">How to Fix Magento Shipping Integration Problems</h2>
+    <p class="post-excerpt">Where orders fall through the cracks between Magento and your shipping platform — and how to plug them.</p>
+    <div class="post-meta">
+      <span>Madrazall Built</span>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p>© 2026 Madrazall Built — Hartford County, CT. All rights reserved.</p>
+  <a href="../#contact">Work with me →</a>
+</footer>
+
+</body>
+</html>
