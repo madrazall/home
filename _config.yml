@@ -17,8 +17,6 @@ plugins:
   - jekyll-sitemap
 
 # Collections
-posts:
-  output: true
 
 # Defaults
 defaults:
