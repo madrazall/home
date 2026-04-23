@@ -1,0 +1,28 @@
+---
+layout: default
+---
+
+{% include nav.html active_blog=true %}
+
+<article class="post-article" style="padding: 140px 52px 80px; max-width: 780px; margin: 0 auto;">
+  <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 28px;">
+    <div style="width: 20px; height: 1px; background: var(--cyan);"></div>
+    <span style="font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cyan);">{{ page.category }}</span>
+  </div>
+
+  <h1 style="font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5vw, 4rem); line-height: 0.95; letter-spacing: 0.03em; color: var(--white); margin-bottom: 16px;">{{ page.title }}</h1>
+
+  <div style="font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray); margin-bottom: 48px; padding-bottom: 24px; border-bottom: 1px solid var(--dark-4);">
+    {{ page.date | date: "%B %d, %Y" }} · {{ page.read_time }} read
+  </div>
+
+  <div class="post-body" style="font-size: 1rem; color: var(--gray-light); line-height: 1.85;">
+    {{ content }}
+  </div>
+
+  <div style="margin-top: 64px; padding-top: 32px; border-top: 1px solid var(--dark-4);">
+    <a href="{{ site.baseurl }}/blog/" style="font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); text-decoration: none; transition: color 0.2s;">← Back to Blog</a>
+  </div>
+</article>
+
+{% include footer.html %}

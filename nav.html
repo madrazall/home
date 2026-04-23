@@ -1,0 +1,14 @@
+<nav>
+  <a href="{{ site.baseurl }}/" class="nav-logo">
+    <div class="nav-wordmark">MADRAZALL <span>BUILT</span></div>
+    <div class="nav-sub">Web · Ops · Systems</div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="{{ site.baseurl }}/#services">Services</a></li>
+    <li><a href="{{ site.baseurl }}/#about">About</a></li>
+    <li><a href="{{ site.baseurl }}/#process">Process</a></li>
+    <li><a href="{{ site.baseurl }}/blog/" {% if include.active_blog %}class="active"{% endif %}>Blog</a></li>
+    <li><a href="{{ site.baseurl }}/#contact">Contact</a></li>
+  </ul>
+  <a href="{{ site.baseurl }}/#contact" class="nav-cta">Get In Touch</a>
+</nav>

@@ -1,0 +1,29 @@
+# Jekyll Configuration
+# Site settings
+title: "Madrazall Built"
+description: "E-commerce operations consulting, workflow systems design, and web development for small businesses. Hartford County, CT. Available remote."
+baseurl: "/home"
+url: "https://madrazallbuilt.com"
+author: "Madrazall Built"
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+permalink: /blog/:title/
+
+# Plugins (GitHub Pages supports these by default)
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+# Collections
+posts:
+  output: true
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
