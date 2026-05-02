@@ -19,7 +19,7 @@ title: "Blog"
 <main class="blog-grid" style="max-width: 1100px; margin: 0 auto; padding: 64px 52px 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2px; background: var(--dark-4);">
 
   {% for post in site.posts %}
-  <a href="{{ post.url }}" class="post-card reveal" style="background: var(--dark-3); padding: 36px 32px; text-decoration: none; display: block; position: relative; overflow: hidden; transition: background 0.3s;">
+  <a href="{{ site.baseurl }}{{ post.url }}" class="post-card reveal" style="background: var(--dark-3); padding: 36px 32px; text-decoration: none; display: block; position: relative; overflow: hidden; transition: background 0.3s;">
     <div style="font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cyan); margin-bottom: 16px;">{{ post.category }}</div>
     <h2 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 0.04em; color: var(--white); line-height: 1.15; margin-bottom: 12px;">{{ post.title }}</h2>
     <p style="font-size: 0.88rem; color: var(--gray-mid); line-height: 1.75; margin-bottom: 24px;">{{ post.excerpt | strip_html | truncate: 140 }}</p>
