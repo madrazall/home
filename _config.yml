@@ -2,8 +2,8 @@
 # Site settings
 title: "Madrazall Built"
 description: "E-commerce operations consulting, workflow systems design, and web development for small businesses. Hartford County, CT. Available remote."
-baseurl: ""
-url: "https://madrazallbuilt.com"
+baseurl: "/home"
+url: "https://madrazall.github.io"
 author: "Madrazall Built"
 
 # Build settings
