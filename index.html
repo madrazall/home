@@ -767,6 +767,94 @@ footer {
 }
 .footer-links a:hover { color: var(--cyan); }
 
+/* ── BOOK FEATURE ── */
+.book-feature {
+  padding: 110px 52px;
+  background: var(--dark);
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid rgba(0,200,240,0.07);
+}
+.book-feature-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.book-feature-visual {
+  position: relative;
+  width: 240px;
+  animation: bookFloat 4s ease-in-out infinite;
+}
+@keyframes bookFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.book-feature-glow {
+  position: absolute;
+  inset: -20px;
+  background: radial-gradient(ellipse at center, rgba(0,200,240,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+.book-feature-cover {
+  width: 100%;
+  display: block;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.7), 0 0 0 1px rgba(0,200,240,0.1);
+}
+.book-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0,200,240,0.07);
+  border: 1px solid rgba(0,200,240,0.2);
+  padding: 6px 14px;
+  margin-bottom: 20px;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cyan);
+}
+.book-badge-dot { width: 5px; height: 5px; background: var(--cyan); border-radius: 50%; }
+.book-feature-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem, 6vw, 5rem);
+  letter-spacing: 0.05em;
+  line-height: 0.9;
+  color: var(--white);
+  margin-bottom: 14px;
+}
+.book-feature-sub {
+  font-size: 1rem;
+  color: var(--cyan);
+  font-style: italic;
+  letter-spacing: 0.02em;
+  margin-bottom: 20px;
+}
+.book-feature-desc {
+  font-size: 0.95rem;
+  color: var(--gray-light);
+  line-height: 1.8;
+  max-width: 480px;
+  margin-bottom: 32px;
+}
+.book-price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem;
+  color: var(--cyan);
+  letter-spacing: 0.06em;
+  margin-bottom: 28px;
+  line-height: 1;
+}
+.book-price span {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--gray);
+  letter-spacing: 0.1em;
+  vertical-align: middle;
+  margin-left: 8px;
+}
+
 /* ── REVEAL ── */
 .reveal { opacity:0; transform:translateY(24px); transition:opacity 0.65s ease, transform 0.65s ease; }
 .reveal.visible { opacity:1; transform:none; }
@@ -786,6 +874,11 @@ footer {
   .about-visual { display: none; }
   footer { flex-direction: column; gap: 20px; text-align: center; }
   .scroll-hint { display: none; }
+  .book-feature { padding: 80px 24px; }
+  .book-feature-layout { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+  .book-feature-visual { width: 180px; margin: 0 auto; }
+  .book-feature-desc { max-width: 100%; }
+  .book-badge { margin: 0 auto 20px; }
 }
 </style>
 </head>
@@ -980,6 +1073,24 @@ footer {
           <p>A tailored solution for analyzing complex datasets, providing actionable insights and visualizations for a small e-commerce operation.</p>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOK FEATURE -->
+<section class="book-feature">
+  <div class="book-feature-layout">
+    <div class="book-feature-visual reveal">
+      <div class="book-feature-glow"></div>
+      <img src="assets/images/paper-trail-cover.png" alt="Paper Trail by Darcy Madrazo" class="book-feature-cover" />
+    </div>
+    <div>
+      <div class="book-badge"><span class="book-badge-dot"></span>Now Available</div>
+      <h2 class="book-feature-title reveal">PAPER<br>TRAIL</h2>
+      <p class="book-feature-sub reveal reveal-d1">"Hope you can hold. Evidence you can touch."</p>
+      <p class="book-feature-desc reveal reveal-d2">A pocket companion for anyone facing harassment, retaliation, wage theft, or a hostile workplace — and isn't sure what to do next. Plain language, room to write, and a steady voice reminding you that you're not overreacting.</p>
+      <div class="book-price reveal reveal-d3">$19.99 <span>+ shipping</span></div>
+      <a href="./papertrail/" class="btn-primary reveal reveal-d4">Order Your Copy →</a>
     </div>
   </div>
 </section>
