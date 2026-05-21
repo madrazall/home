@@ -1,0 +1,565 @@
+---
+layout: none
+permalink: /papertrail/
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Paper Trail — Darcy Madrazo</title>
+  <meta name="description" content="A pocket companion for anyone facing harassment, retaliation, wage theft, or a hostile workplace. Document what happened, preserve evidence, and walk into any meeting prepared." />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content="Paper Trail — Darcy Madrazo" />
+  <meta property="og:description" content="Hope you can hold. Evidence you can touch. A documentation journal for workplace hardship." />
+  <meta property="og:image" content="{{ site.url }}{{ site.baseurl }}/assets/images/paper-trail-cover.png" />
+  <meta property="og:type" content="product" />
+  <meta property="og:url" content="{{ site.url }}{{ site.baseurl }}/papertrail/" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,700;1,500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #060810;
+      --surface: #0d1117;
+      --surface2: #111827;
+      --cyan: #00c8e0;
+      --cyan-dim: rgba(0,200,224,0.12);
+      --white: #f0f4f8;
+      --muted: #6b7a8d;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 2.5rem;
+      background: rgba(6,8,16,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,200,224,0.1);
+    }
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      letter-spacing: 0.15em;
+      color: var(--cyan);
+      text-decoration: none;
+    }
+    .nav-back {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--cyan); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 4rem;
+      padding: 8rem 5rem 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 80% 50%, rgba(0,200,224,0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 10% 80%, rgba(0,200,224,0.04) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,200,224,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,200,224,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    .hero-text { position: relative; z-index: 2; }
+
+    .hero-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      color: var(--cyan);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .hero-label::before {
+      content: '';
+      display: inline-block;
+      width: 2rem;
+      height: 1px;
+      background: var(--cyan);
+    }
+
+    h1.hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.5rem, 7vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -0.01em;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+
+    .hero-subtitle {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--cyan);
+      font-weight: 500;
+      margin-bottom: 2rem;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-desc {
+      font-size: 1rem;
+      color: rgba(240,244,248,0.75);
+      max-width: 480px;
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+    }
+
+    .hero-author {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-top: 1rem;
+    }
+
+    .btn-primary {
+      background: var(--cyan);
+      color: var(--bg);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.15em;
+      padding: 0.9rem 2.2rem;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.2s;
+      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+    }
+    .btn-primary:hover {
+      background: #00e5ff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0,200,224,0.35);
+    }
+
+    /* ── BOOK COVER ── */
+    .hero-visual {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .book-wrap {
+      position: relative;
+      width: 280px;
+      animation: float 4s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+    .book-glow {
+      position: absolute;
+      inset: -30px;
+      background: radial-gradient(ellipse at center, rgba(0,200,224,0.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .book-cover {
+      width: 100%;
+      display: block;
+      border: 1px solid rgba(0,200,224,0.15);
+      box-shadow:
+        0 30px 80px rgba(0,0,0,0.8),
+        0 0 0 1px rgba(0,200,224,0.1);
+    }
+
+    /* ── SHARED SECTION LABELS ── */
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.3em;
+      color: var(--cyan);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 3.5rem;
+      color: var(--white);
+    }
+    .section-divider {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+    }
+
+    /* ── WHAT'S INSIDE ── */
+    .features {
+      padding: 6rem 5rem;
+      background: var(--surface);
+      position: relative;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+    .feature-card {
+      background: var(--bg);
+      border: 1px solid rgba(0,200,224,0.1);
+      padding: 2rem;
+      position: relative;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px;
+      height: 0;
+      background: var(--cyan);
+      transition: height 0.3s;
+    }
+    .feature-card:hover { border-color: rgba(0,200,224,0.3); transform: translateY(-3px); }
+    .feature-card:hover::before { height: 100%; }
+    .feature-icon { font-size: 1.5rem; margin-bottom: 1rem; }
+    .feature-title {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+    .feature-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+
+    /* ── ABOUT ── */
+    .about {
+      padding: 6rem 5rem;
+      position: relative;
+    }
+    .about-inner {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .about-inner blockquote {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.3rem, 2.5vw, 1.75rem);
+      font-style: italic;
+      font-weight: 700;
+      color: var(--white);
+      border-left: 3px solid var(--cyan);
+      padding-left: 2rem;
+      margin-bottom: 2.5rem;
+      line-height: 1.4;
+    }
+    .about-inner p {
+      color: rgba(240,244,248,0.75);
+      font-size: 1rem;
+      line-height: 1.85;
+      margin-bottom: 1.5rem;
+    }
+    .about-disclaimer {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      font-style: italic;
+      border-top: 1px solid rgba(0,200,224,0.1);
+      padding-top: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    /* ── PURCHASE ── */
+    .purchase {
+      padding: 6rem 5rem;
+      background: var(--surface);
+      position: relative;
+    }
+    .purchase-inner {
+      max-width: 560px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .purchase-inner h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--white);
+    }
+    .purchase-inner > p {
+      color: rgba(240,244,248,0.7);
+      font-size: 0.95rem;
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+    }
+    .price-display {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.25rem;
+      margin-bottom: 0.5rem;
+    }
+    .price-dollar {
+      font-family: 'DM Mono', monospace;
+      font-size: 1rem;
+      color: var(--cyan);
+    }
+    .price-amount {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3.5rem;
+      color: var(--cyan);
+      line-height: 1;
+    }
+    .price-note {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      align-self: flex-end;
+      padding-bottom: 0.5rem;
+    }
+    .price-shipping {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      margin-bottom: 2.5rem;
+    }
+    .stripe-btn {
+      display: inline-block;
+      background: var(--cyan);
+      color: var(--bg);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.15rem;
+      letter-spacing: 0.15em;
+      padding: 1rem 3rem;
+      text-decoration: none;
+      transition: all 0.2s;
+      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+      margin-bottom: 1.5rem;
+    }
+    .stripe-btn:hover {
+      background: #00e5ff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0,200,224,0.35);
+    }
+    .secure-note {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.63rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      margin-bottom: 2rem;
+    }
+    .secure-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--cyan);
+      flex-shrink: 0;
+    }
+    .purchase-disclaimer {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      border-top: 1px solid rgba(0,200,224,0.1);
+      padding-top: 1.5rem;
+      line-height: 1.7;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid rgba(0,200,224,0.08);
+      padding: 2rem 5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .footer-brand {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.15em;
+      color: var(--cyan);
+    }
+    .footer-copy {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 7rem 2rem 4rem;
+        text-align: center;
+        gap: 3rem;
+      }
+      .hero-desc { max-width: 100%; }
+      .hero-label { justify-content: center; }
+      .hero-visual { order: -1; }
+      .book-wrap { width: 200px; }
+      .features { padding: 4rem 2rem; }
+      .about { padding: 4rem 2rem; }
+      .about-inner blockquote { font-size: 1.2rem; padding-left: 1.25rem; }
+      .purchase { padding: 4rem 2rem; }
+      .purchase { padding: 4rem 2rem; }
+      footer { padding: 2rem; flex-direction: column; text-align: center; }
+      nav { padding: 1rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="{{ site.baseurl }}/" class="nav-logo">Madrazall Built</a>
+    <a href="{{ site.baseurl }}/" class="nav-back">← Back</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-text">
+      <div class="hero-label">Now Available</div>
+      <h1 class="hero-title">Paper Trail</h1>
+      <p class="hero-subtitle">"Hope you can hold. Evidence you can touch."</p>
+      <p class="hero-desc">
+        A pocket companion for anyone facing harassment, retaliation, wage theft, or a hostile workplace — and isn't sure what to do next. You don't have to be certain it's <em>"bad enough."</em> You just have to start.
+      </p>
+      <a href="#order" class="btn-primary">Order Your Copy</a>
+      <div class="hero-author">By Darcy Madrazo</div>
+    </div>
+    <div class="hero-visual">
+      <div class="book-wrap">
+        <div class="book-glow"></div>
+        <img
+          src="{{ site.baseurl }}/assets/images/paper-trail-cover.png"
+          alt="Paper Trail by Darcy Madrazo — a documentation journal"
+          class="book-cover"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="features" id="inside">
+    <div class="section-divider"></div>
+    <div class="section-label">What's Inside</div>
+    <h2 class="section-title">Built for moments when you don't know what to do next.</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📝</div>
+        <div class="feature-title">Log in your own words</div>
+        <p class="feature-desc">Structured space to write down what happened, when, and who was there — in plain language, not legalese.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🗂️</div>
+        <div class="feature-title">Preserve evidence</div>
+        <p class="feature-desc">Prompts to capture and organize proof before you lose access — emails, messages, witnesses, timestamps.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <div class="feature-title">Build a clear pattern</div>
+        <p class="feature-desc">Turn scattered, stressful moments into a documented timeline that makes sense to HR, attorneys, or a judge.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💼</div>
+        <div class="feature-title">Walk in prepared</div>
+        <p class="feature-desc">Go into any HR meeting or attorney's office with something real in your hands — not just your word against theirs.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="about">
+    <div class="section-divider"></div>
+    <div class="about-inner">
+      <div class="section-label">About the Book</div>
+      <blockquote>"Hope you can hold. Evidence you can touch."</blockquote>
+      <p>
+        Paper Trail is a pocket companion for anyone facing harassment, retaliation, wage theft, or a hostile workplace — and isn't sure what to say next. You don't have to be certain it's "bad enough." You just have to start.
+      </p>
+      <p>
+        Step by step, it helps you log what happened in your own words, preserve evidence before you lose access, turn scattered moments into a clear pattern, and walk into HR or an attorney's office prepared. Plain language, room to write, and a steady voice every few pages reminding you that you're not overreacting — you're building something real.
+      </p>
+      <div class="about-disclaimer">A documentation journal, not legal advice.</div>
+    </div>
+  </section>
+
+  <section class="purchase" id="order">
+    <div class="section-divider"></div>
+    <div class="purchase-inner">
+      <div class="section-label">Order</div>
+      <h2>Get your copy.</h2>
+      <p>A physical journal shipped directly to you. Checkout handled securely by Stripe — shipping calculated at checkout.</p>
+      <div class="price-display">
+        <span class="price-dollar">$</span>
+        <span class="price-amount">19.99</span>
+      </div>
+      <div class="price-shipping">+ shipping calculated at checkout</div>
+      <div>
+        <a href="https://buy.stripe.com/5kQ5kC67PfJFfaq72d4ko01" class="stripe-btn" target="_blank" rel="noopener">Buy Now</a>
+      </div>
+      <div class="secure-note">
+        <span class="secure-dot"></span>
+        Secured by Stripe &nbsp;·&nbsp; No account required
+      </div>
+      <div class="purchase-disclaimer">
+        Paper Trail is a documentation journal, not legal advice.
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span class="footer-brand">Madrazall Built</span>
+    <span class="footer-copy">© 2026 Darcy Madrazo &nbsp;·&nbsp; Paper Trail &nbsp;·&nbsp; A documentation journal, not legal advice.</span>
+  </footer>
+
+
+</body>
+</html>
