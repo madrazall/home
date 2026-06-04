@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Return Process Proposal — Madrazall Built</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#060810;font-family:Arial,sans-serif;color:#e8eaf0;}
+#gate{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:24px;}
+#gate .wordmark{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#00c8e0;margin-bottom:20px;}
+#gate .lock{width:48px;height:48px;border-radius:50%;border:1.5px solid #00c8e0;display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
+#gate h2{font-size:16px;font-weight:600;color:#e8eaf0;margin-bottom:6px;}
+#gate p{font-size:13px;color:#8892a4;margin-bottom:24px;text-align:center;line-height:1.5;}
+#gate input{background:#0d1117;border:1px solid rgba(0,200,224,0.3);border-radius:8px;color:#e8eaf0;font-size:14px;padding:12px 16px;width:100%;max-width:280px;outline:none;text-align:center;letter-spacing:0.08em;}
+#gate input:focus{border-color:#00c8e0;}
+#gate input::placeholder{color:#8892a4;letter-spacing:0;}
+#gate button{margin-top:12px;background:rgba(0,200,224,0.12);border:1px solid rgba(0,200,224,0.3);border-radius:8px;color:#00c8e0;font-size:13px;font-weight:700;padding:12px 32px;cursor:pointer;letter-spacing:0.06em;text-transform:uppercase;}
+#gate button:hover{background:rgba(0,200,224,0.2);}
+#gate .error{font-size:12px;color:#ff5c5c;margin-top:10px;opacity:0;transition:opacity 0.2s;}
+#gate .error.show{opacity:1;}
+#content{display:none;padding:28px 24px 40px;max-width:480px;margin:0 auto;}
+.mb-wordmark{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#00c8e0;margin:0 0 16px;}
+.title-block{border-left:3px solid #00c8e0;padding-left:14px;margin-bottom:14px;}
+.mb-title{font-size:20px;font-weight:700;line-height:1.35;margin:0;color:#ffffff;}
+.mb-sub{font-size:12px;color:#8892a4;margin:10px 0 0;}
+.divider{border:none;border-top:1px solid rgba(0,200,224,0.3);margin:18px 0;}
+.section-label{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#00c8e0;margin:0 0 10px;}
+.body-text{font-size:13px;color:#8892a4;line-height:1.6;margin:0 0 10px;}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;}
+.stat-card{background:#0d1117;border:1px solid rgba(0,200,224,0.3);border-radius:8px;padding:12px;}
+.stat-num{font-size:22px;font-weight:700;margin:4px 0 2px;color:#00c8e0;}
+.stat-num-danger{color:#ff5c5c!important;}
+.stat-label{font-size:11px;color:#8892a4;}
+.stat-sub{font-size:10px;color:#8892a4;margin:2px 0 0;opacity:0.7;}
+.confirmed-box{border-left:3px solid #ff5c5c;background:rgba(255,92,92,0.1);border-radius:0 8px 8px 0;padding:12px 14px;margin:10px 0;}
+.confirmed-tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;background:rgba(255,92,92,0.1);color:#ff5c5c;border:1px solid #ff5c5c;border-radius:4px;padding:2px 8px;margin-bottom:8px;}
+.confirmed-title{font-size:14px;font-weight:700;margin:0 0 6px;color:#e8eaf0;}
+.risk-card{background:#0d1117;border:1px solid rgba(136,146,164,0.2);border-radius:8px;padding:12px 14px;margin-bottom:8px;}
+.risk-title{font-size:13px;font-weight:700;margin:0 0 3px;color:#e8eaf0;}
+.risk-body{font-size:12px;color:#8892a4;margin:0;line-height:1.5;}
+.roi-block{background:#0d1117;border:1px solid rgba(0,200,224,0.3);border-radius:10px;padding:14px 16px;margin-bottom:10px;}
+.roi-label{font-size:11px;color:#00c8e0;font-weight:700;margin:0 0 6px;}
+.roi-big{font-size:28px;font-weight:700;color:#00c8e0;margin:0 0 2px;}
+.roi-sub{font-size:12px;color:#8892a4;margin:0 0 10px;}
+.roi-row{display:flex;justify-content:space-between;font-size:12px;color:#8892a4;padding:5px 0;border-top:1px solid rgba(0,200,224,0.1);}
+.roi-val{color:#e8eaf0;font-weight:700;}
+.toggle-row{display:flex;gap:8px;margin-bottom:14px;}
+.toggle-btn{flex:1;padding:10px;font-size:12px;font-weight:700;border-radius:6px;border:1px solid rgba(0,200,224,0.3);background:transparent;color:#8892a4;cursor:pointer;}
+.toggle-btn.active{background:rgba(0,200,224,0.12);color:#00c8e0;border-color:#00c8e0;}
+.build-card{background:#0d1117;border:1px solid rgba(0,200,224,0.3);border-radius:8px;padding:12px 14px;margin-bottom:8px;}
+.build-title{font-size:13px;font-weight:700;color:#00c8e0;margin:0 0 3px;}
+.build-body{font-size:12px;color:#8892a4;margin:0;line-height:1.5;}
+.timeline-row{display:flex;gap:12px;margin-bottom:10px;align-items:flex-start;}
+.badge-cyan{font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;background:rgba(0,200,224,0.12);color:#00c8e0;border:1px solid rgba(0,200,224,0.3);white-space:nowrap;letter-spacing:0.04em;display:inline-block;}
+.badge-dim{font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;background:rgba(136,146,164,0.1);color:#8892a4;border:1px solid rgba(136,146,164,0.2);white-space:nowrap;letter-spacing:0.04em;display:inline-block;}
+.timeline-title{font-size:13px;font-weight:700;margin:0 0 2px;color:#e8eaf0;}
+.timeline-body{font-size:12px;color:#8892a4;margin:0;line-height:1.5;}
+.compound-card{background:#0d1117;border:1px solid rgba(136,146,164,0.15);border-radius:8px;padding:10px 14px;margin-bottom:8px;}
+.compound-title{font-size:13px;font-weight:700;margin:0 0 2px;color:#e8eaf0;}
+.compound-body{font-size:12px;color:#8892a4;margin:0;line-height:1.5;}
+.close-block{background:rgba(0,200,224,0.08);border:1px solid rgba(0,200,224,0.3);border-radius:10px;padding:18px 16px;margin-top:18px;}
+.close-title{font-size:17px;font-weight:700;color:#00c8e0;margin:0 0 10px;line-height:1.4;}
+.close-body{font-size:13px;color:#8892a4;margin:0 0 8px;line-height:1.6;}
+.close-kicker{font-size:13px;color:#e8eaf0;margin:12px 0 0;line-height:1.6;font-style:italic;}
+.dot-tag{font-size:10px;color:#00c8e0;background:rgba(0,200,224,0.12);border:1px solid rgba(0,200,224,0.3);border-radius:4px;padding:2px 8px;display:inline-block;margin:4px 4px 0 0;}
+.tagline{font-size:10px;color:#8892a4;margin:20px 0 0;text-align:center;letter-spacing:0.06em;opacity:0.6;}
+.payback-bar-wrap{margin:10px 0 4px;}
+.payback-label{font-size:11px;color:#8892a4;margin:0 0 5px;}
+.payback-track{background:#111827;border-radius:4px;height:6px;width:100%;overflow:hidden;}
+.payback-fill{height:100%;border-radius:4px;background:#00c8e0;transition:width 0.4s;}
+.payback-weeks{font-size:11px;color:#00c8e0;margin:4px 0 0;}
+</style></head>
+<body>
+
+<div id="gate">
+  <p class="wordmark">Madrazall Built</p>
+  <div class="lock">
+    <svg width="20" height="20" fill="none" stroke="#00c8e0" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+  </div>
+  <h2>Protected document</h2>
+  <p>This proposal is confidential.<br>Enter the password to continue.</p>
+  <input type="password" id="pw-input" placeholder="Password" onkeydown="if(event.key==='Enter')unlock()">
+  <button onclick="unlock()">View Proposal</button>
+  <p class="error" id="pw-error">Incorrect password. Try again.</p>
+</div>
+
+<div id="content">
+  <p class="mb-wordmark">Madrazall Built</p>
+  <div class="title-block">
+    <h1 class="mb-title">Why we need a documented return process — and why someone needs to own it</h1>
+  </div>
+  <p class="mb-sub">2025 return data &nbsp;·&nbsp; ShipStation export &nbsp;·&nbsp; Madrazall Built analysis</p>
+
+  <div class="divider"></div>
+  <p class="section-label">2025 by the numbers</p>
+  <div class="stat-grid">
+    <div class="stat-card"><p class="stat-label">Logged returns</p><p class="stat-num">15</p><p class="stat-sub">in ShipStation</p></div>
+    <div class="stat-card"><p class="stat-label">Estimated actual</p><p class="stat-num">~30</p><p class="stat-sub">unlogged gap unknown</p></div>
+    <div class="stat-card"><p class="stat-label">Product recovered</p><p class="stat-num stat-num-danger">Unknown</p><p class="stat-sub">never been tracked</p></div>
+    <div class="stat-card"><p class="stat-label">Refunds tied to return</p><p class="stat-num stat-num-danger">Unknown</p><p class="stat-sub">no crosswalk exists</p></div>
+  </div>
+  <p class="body-text">Refunds are issued through Magento with no required link to a return label or confirmed receipt. There is no way to know how many returns were actually received, in what condition, or whether product came back at all — because it has never been tracked.</p>
+
+  <div class="divider"></div>
+  <p class="section-label">This already happened</p>
+  <div class="confirmed-box">
+    <span class="confirmed-tag">Confirmed incident</span>
+    <p class="confirmed-title">Dispute with no documentation to respond</p>
+    <p class="body-text" style="margin:0;">At least one customer dispute occurred where we could not produce proof the return was received. No timestamped receipt. No evidentiary position. Not hypothetical — already happened.</p>
+  </div>
+
+  <div class="divider"></div>
+  <p class="section-label">What stays at risk</p>
+  <div class="risk-card"><p class="risk-title">Chargeback disputes</p><p class="risk-body">No receipt record = no defense. One lost dispute at $1,100 avg order value recovers months of any rate adjustment.</p></div>
+  <div class="risk-card"><p class="risk-title">Product loss with no record</p><p class="risk-body">Known cases where product never came back. No way to quantify how often — because it was never logged.</p></div>
+  <div class="risk-card"><p class="risk-title">Carrier claims</p><p class="risk-body">Lost return shipments can't be claimed without a label on file. Without one, the loss is entirely ours.</p></div>
+  <div class="risk-card"><p class="risk-title">Zero pattern visibility</p><p class="risk-body">No way to see which products fail most, which customers return most, or whether volume is trending.</p></div>
+
+  <div class="divider"></div>
+  <p class="section-label">What does this actually cost</p>
+  <p class="body-text">Find out what your returns cost you in 2025. Then compare it to this.</p>
+
+  <div class="toggle-row">
+    <button class="toggle-btn active" onclick="setRaise(7,this)">$7/hr raise</button>
+    <button class="toggle-btn" onclick="setRaise(10,this)">$10/hr raise</button>
+  </div>
+  <div class="roi-block">
+    <p class="roi-label" id="roi-label">$7/hr raise — annual cost</p>
+    <p class="roi-big" id="annual-cost">$14,560</p>
+    <p class="roi-sub" id="weekly-cost">$280/week additional payroll</p>
+    <div class="roi-row"><span>Returns needed to break even</span><span class="roi-val" id="returns-needed">13–18/yr</span></div>
+    <div class="roi-row"><span>That's per month</span><span class="roi-val" id="per-month">~1–2/mo</span></div>
+    <div class="roi-row"><span>2025 logged returns alone</span><span class="roi-val">15 confirmed</span></div>
+    <div class="roi-row"><span>Estimated actual 2025</span><span class="roi-val">~30</span></div>
+    <div class="payback-bar-wrap">
+      <p class="payback-label">Estimated payback period</p>
+      <div class="payback-track"><div class="payback-fill" id="payback-fill" style="width:18%;"></div></div>
+      <p class="payback-weeks" id="payback-weeks">~10 weeks at avg order value</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <p class="section-label">The proposed build</p>
+  <p class="body-text">Custom software built for this operation. Designed for warehouse adoption from day one.</p>
+  <div class="build-card"><p class="build-title">Return tracking dashboard</p><p class="build-body">Every return tied to an order, a label, and a confirmed receipt. Full status from request to restock.</p></div>
+  <div class="build-card"><p class="build-title">Warehouse intake flow</p><p class="build-body">Simple receive-and-log interface built for the floor. Condition flagging, disposition tracking, restock confirmation.</p></div>
+  <div class="build-card"><p class="build-title">Magento + ShipStation integration</p><p class="build-body">Return records linked to existing order data. Refund status, label, and receipt in one place.</p></div>
+  <div class="build-card"><p class="build-title">Auto reconciliation report</p><p class="build-body">Refunds vs. labels vs. confirmed receipts. Gaps surfaced automatically every month.</p></div>
+
+  <div class="divider"></div>
+  <p class="section-label">The timeline</p>
+  <div class="timeline-row"><span class="badge-cyan">Week 1</span><div style="padding-top:2px;"><p class="timeline-title">Live</p><p class="timeline-body">System built and deployed. Warehouse intake flow active. Returns being logged from day one.</p></div></div>
+  <div class="timeline-row"><span class="badge-cyan">Week 2</span><div style="padding-top:2px;"><p class="timeline-title">Stable</p><p class="timeline-body">Bugs resolved. Reconciliation confirmed against Magento and ShipStation. Process locked in.</p></div></div>
+  <div class="timeline-row"><span class="badge-dim">Weeks 3–52</span><div style="padding-top:2px;"><p class="timeline-title">50 weeks remaining in the year</p><p class="timeline-body">Returns running clean. Patterns emerging. Next process identified and scoped. The system compounds.</p></div></div>
+
+  <div class="divider"></div>
+  <p class="section-label">The compounding value</p>
+  <div class="compound-card"><p class="compound-title">Root cause identification</p><p class="compound-body">Repeat SKUs surface as quality or listing problems. Fix upstream, reduce future returns entirely.</p></div>
+  <div class="compound-card"><p class="compound-title">Chargeback defense on record</p><p class="compound-body">Every return timestamped and tied to an order. Disputes become defensible.</p></div>
+  <div class="compound-card"><p class="compound-title">Customer pattern flagging</p><p class="compound-body">Repeat returners become visible. Data that doesn't exist today starts building immediately.</p></div>
+  <div class="compound-card"><p class="compound-title">Value increases every week</p><p class="compound-body">Year one builds the baseline. Year two shows trends. Year three enables decisions. It gets more valuable the longer it runs.</p></div>
+
+  <div class="close-block">
+    <p class="close-title">Live in one week.<br>Clean in two.<br>50 weeks left to fix the next thing.</p>
+    <p class="close-body">This is one process. There are more. Each one documented, systematized, and owned — building on the last. That's not a cost. That's infrastructure.</p>
+    <p class="close-kicker">The question isn't whether it's worth it. The question is whether you find out before or after the next incident.</p>
+    <div style="margin-top:12px;">
+      <span class="dot-tag">ShipStation</span>
+      <span class="dot-tag">Magento</span>
+      <span class="dot-tag">Custom software</span>
+      <span class="dot-tag">Madrazall Built</span>
+    </div>
+  </div>
+  <p class="tagline">Same builder logic. Different materials. &nbsp;·&nbsp; madrazallbuilt.com</p>
+</div>
+
+<script>
+function unlock() {
+  var pw = document.getElementById('pw-input').value;
+  var err = document.getElementById('pw-error');
+  if (pw.toLowerCase() === 'willynilly') {
+    document.getElementById('gate').style.display = 'none';
+    document.getElementById('content').style.display = 'block';
+  } else {
+    err.classList.add('show');
+    document.getElementById('pw-input').value = '';
+  }
+}
+function setRaise(amt, btn) {
+  document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  var annual = amt * 40 * 52;
+  var weekly = amt * 40;
+  var low = Math.ceil(annual / 1400);
+  var high = Math.ceil(annual / 800);
+  var perMoLow = (low / 12).toFixed(1);
+  var perMoHigh = (high / 12).toFixed(1);
+  var weeks = Math.ceil((annual / 1100) / (30 / 52));
+  var pct = Math.min(Math.round((weeks / 52) * 100), 95);
+  document.getElementById('roi-label').textContent = '$' + amt + '/hr raise \u2014 annual cost';
+  document.getElementById('annual-cost').textContent = '$' + annual.toLocaleString();
+  document.getElementById('weekly-cost').textContent = '$' + weekly.toLocaleString() + '/week additional payroll';
+  document.getElementById('returns-needed').textContent = low + '\u2013' + high + '/yr';
+  document.getElementById('per-month').textContent = '~' + perMoLow + '\u2013' + perMoHigh + '/mo';
+  document.getElementById('payback-fill').style.width = pct + '%';
+  document.getElementById('payback-weeks').textContent = '~' + weeks + ' weeks at avg order value';
+}
+</script>
+</body></html>
