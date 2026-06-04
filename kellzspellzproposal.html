@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kellz Spellz × Madrazall Built — Web Proposal</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Nunito:ital,wght@0,300;0,400;0,600;0,700;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0a14;
+    --surface: #130f1e;
+    --surface2: #1a1528;
+    --border: rgba(180,140,255,0.12);
+    --border-soft: rgba(180,140,255,0.06);
+    --purple: #9b5de5;
+    --purple-light: #c77dff;
+    --purple-dim: rgba(155,93,229,0.15);
+    --purple-glow: rgba(155,93,229,0.08);
+    --gold: #e4b84a;
+    --gold-dim: rgba(228,184,74,0.12);
+    --text: #ede8f5;
+    --muted: #8878a8;
+    --faint: #3d3358;
+    --white: #ffffff;
+    --green: #4ade80;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { background: var(--bg); color: var(--text); font-family: 'Nunito', sans-serif; font-size: 16px; scroll-behavior: smooth; }
+
+  body {
+    min-height: 100vh;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(155,93,229,0.18) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 30% at 90% 80%, rgba(199,125,255,0.08) 0%, transparent 50%),
+      var(--bg);
+  }
+
+  /* ── GATE ──────────────────────────────────────────────── */
+  #gate {
+    position: fixed; inset: 0; z-index: 100;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(155,93,229,0.25) 0%, transparent 60%),
+      #0d0a14;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 24px; padding: 40px;
+    animation: fadeIn 0.6s ease;
+  }
+  #gate .gate-sigil {
+    font-size: 48px; line-height: 1;
+    filter: drop-shadow(0 0 20px rgba(155,93,229,0.6));
+    animation: pulse 3s ease-in-out infinite;
+  }
+  #gate h2 {
+    font-family: 'Cinzel', serif; font-size: clamp(18px, 4vw, 26px); font-weight: 500;
+    letter-spacing: 0.12em; text-align: center; color: var(--text);
+  }
+  #gate p { font-size: 13px; color: var(--muted); text-align: center; letter-spacing: 0.04em; }
+  #gate-form { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+  #pw-input {
+    background: var(--surface2); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px 16px; font-family: 'Nunito', sans-serif; font-size: 14px;
+    color: var(--text); outline: none; width: 220px; letter-spacing: 0.1em;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  #pw-input:focus { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(155,93,229,0.15); }
+  #pw-input.error { border-color: #f87171; animation: shake 0.3s ease; }
+  #pw-btn {
+    background: var(--purple); border: none; border-radius: 8px;
+    padding: 12px 24px; font-family: 'Cinzel', serif; font-size: 13px;
+    color: #fff; cursor: pointer; letter-spacing: 0.08em;
+    transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+  }
+  #pw-btn:hover { background: var(--purple-light); box-shadow: 0 0 20px rgba(155,93,229,0.4); }
+  #pw-btn:active { transform: scale(0.97); }
+  #pw-error { font-size: 12px; color: #f87171; display: none; }
+
+  /* ── MAIN ──────────────────────────────────────────────── */
+  #main { display: none; max-width: 780px; margin: 0 auto; padding: 60px 32px 100px; }
+  #main.visible { display: block; animation: riseIn 0.7s ease; }
+
+  /* ── HEADER ─────────────────────────────────────────────── */
+  .doc-header { margin-bottom: 48px; }
+  .doc-meta {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    gap: 24px; flex-wrap: wrap; margin-bottom: 24px;
+  }
+  .from-block { text-align: right; font-size: 12px; color: var(--muted); line-height: 2; }
+  .from-block strong { color: var(--text); font-size: 13px; display: block; margin-bottom: 2px; }
+  .doc-title { font-family: 'Cinzel', serif; font-size: clamp(24px, 5vw, 36px); font-weight: 500; letter-spacing: 0.06em; line-height: 1.2; color: var(--text); }
+  .doc-subtitle { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-top: 8px; }
+  .header-rule { height: 1px; background: linear-gradient(90deg, var(--purple) 0%, rgba(155,93,229,0.2) 60%, transparent 100%); margin-top: 24px; }
+
+  /* ── SECTION ─────────────────────────────────────────────── */
+  .section { margin-bottom: 44px; }
+  .section-label {
+    font-family: 'Cinzel', serif; font-size: 10px; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase; color: var(--purple-light);
+    margin-bottom: 16px; display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::after { content: ''; flex: 1; height: 0.5px; background: var(--border); }
+
+  /* ── CALLOUT ─────────────────────────────────────────────── */
+  .callout {
+    background: var(--purple-dim); border-left: 3px solid var(--purple);
+    border-radius: 0 10px 10px 0; padding: 16px 20px;
+    font-size: 15px; font-style: italic; color: #d5c8f0; line-height: 1.7;
+    margin: 16px 0;
+  }
+
+  .notice {
+    background: var(--gold-dim); border: 1px solid rgba(228,184,74,0.25);
+    border-radius: 10px; padding: 14px 18px;
+    font-size: 13px; color: #e4c96a; line-height: 1.7;
+    margin: 16px 0;
+  }
+
+  p { font-size: 15px; line-height: 1.8; color: var(--text); margin-bottom: 12px; }
+  p.muted { color: var(--muted); font-size: 13px; }
+
+  /* ── DELIVERABLES GRID ───────────────────────────────────── */
+  .deliverables { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin: 16px 0; }
+  .d-card {
+    background: var(--surface); border: 1px solid var(--border-soft);
+    border-radius: 10px; padding: 14px 16px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .d-card:hover { border-color: var(--border); background: var(--surface2); }
+  .d-card-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .d-card-body { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+  /* ── PRICING TABLE ───────────────────────────────────────── */
+  .price-table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+  .price-table th {
+    text-align: left; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); padding: 0 12px 10px; font-weight: 600; border-bottom: 1px solid var(--border);
+  }
+  .price-table th:not(:first-child) { text-align: right; }
+  .price-table td { padding: 12px; border-bottom: 1px solid var(--border-soft); vertical-align: top; }
+  .price-table tr:last-child td { border-bottom: none; }
+  .price-table tr:hover td { background: var(--purple-glow); }
+  .item-name { font-size: 14px; font-weight: 600; color: var(--text); }
+  .item-sub { font-size: 12px; color: var(--muted); margin-top: 2px; line-height: 1.5; }
+  .std-amt { text-align: right; font-size: 13px; color: var(--faint); text-decoration: line-through; }
+  .your-amt { text-align: right; font-size: 14px; font-weight: 700; color: var(--text); }
+  .included { color: var(--green); font-size: 13px; }
+
+  /* ── TOTAL BOX ───────────────────────────────────────────── */
+  .total-box {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 20px 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 20px; flex-wrap: wrap; margin: 20px 0 12px;
+  }
+  .total-label { font-size: 15px; font-weight: 700; color: var(--text); }
+  .total-note { font-size: 12px; color: var(--muted); margin-top: 4px; line-height: 1.7; }
+  .total-amt { font-family: 'Cinzel', serif; font-size: 32px; font-weight: 600; color: var(--purple-light); text-align: right; }
+  .total-save { font-size: 12px; color: var(--purple); text-align: right; }
+
+  /* ── PAYMENT OPTIONS ─────────────────────────────────────── */
+  .pay-options {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 10px; margin: 16px 0;
+  }
+  .pay-card {
+    background: var(--surface); border: 1px solid var(--border-soft);
+    border-radius: 10px; padding: 14px 16px;
+  }
+  .pay-card .pay-method { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 6px; }
+  .pay-card .pay-total { font-family: 'Cinzel', serif; font-size: 22px; color: var(--purple-light); }
+  .pay-card .pay-split { font-size: 12px; color: var(--muted); margin-top: 4px; line-height: 1.6; }
+
+  /* ── TIMELINE ────────────────────────────────────────────── */
+  .timeline { display: flex; flex-direction: column; gap: 0; }
+  .phase {
+    display: flex; gap: 16px; padding: 16px 0;
+    border-bottom: 1px solid var(--border-soft);
+    transition: background 0.15s;
+  }
+  .phase:last-child { border-bottom: none; }
+  .phase:hover { background: var(--purple-glow); margin: 0 -16px; padding: 16px 16px; border-radius: 8px; }
+  .phase-num {
+    width: 32px; height: 32px; border-radius: 50%; background: var(--purple);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cinzel', serif; font-size: 13px; font-weight: 600; color: #fff;
+    flex-shrink: 0; margin-top: 2px;
+    box-shadow: 0 0 12px rgba(155,93,229,0.4);
+  }
+  .phase-content { flex: 1; }
+  .phase-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+  .phase-detail { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .phase-dur { font-size: 11px; font-weight: 700; color: var(--purple); white-space: nowrap; margin-top: 4px; align-self: flex-start; padding-top: 6px; }
+
+  /* ── NEEDS LIST ──────────────────────────────────────────── */
+  .needs-list {
+    background: var(--surface); border: 1px solid var(--border);
+    border-left: 3px solid var(--purple); border-radius: 0 10px 10px 0;
+    padding: 16px 20px; display: flex; flex-direction: column; gap: 10px;
+  }
+  .needs-item { display: flex; gap: 12px; align-items: flex-start; font-size: 14px; color: var(--text); }
+  .needs-item::before { content: '✦'; color: var(--purple); font-size: 10px; margin-top: 4px; flex-shrink: 0; }
+
+  /* ── PORTFOLIO CLAUSE ────────────────────────────────────── */
+  .clause-box {
+    background: var(--surface); border: 1px solid var(--border-soft);
+    border-radius: 10px; padding: 16px 20px;
+    font-size: 13px; color: var(--muted); line-height: 1.8; font-style: italic;
+  }
+
+  /* ── SIGNATURE ───────────────────────────────────────────── */
+  .sig-row { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 40px; }
+  .sig-block { }
+  .sig-line { border-bottom: 1px solid var(--faint); height: 44px; margin-bottom: 8px; }
+  .sig-label { font-size: 12px; color: var(--muted); }
+
+  /* ── FOOTER ──────────────────────────────────────────────── */
+  .doc-footer {
+    margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border-soft);
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+  }
+  .footer-brand { font-family: 'Cinzel', serif; font-size: 12px; color: var(--faint); letter-spacing: 0.1em; }
+  .footer-tagline { font-size: 11px; color: var(--faint); }
+
+  /* ── ANIMATIONS ──────────────────────────────────────────── */
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes riseIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-6px); }
+    75% { transform: translateX(6px); }
+  }
+
+  @media (max-width: 600px) {
+    #main { padding: 40px 20px 80px; }
+    .sig-row { grid-template-columns: 1fr; gap: 24px; }
+    .doc-meta { flex-direction: column; }
+    .from-block { text-align: left; }
+  }
+
+  /* ── PALETTE PICKER ─────────────────────────────────── */
+  .ks-tarot-card { border-radius:14px; border:2px solid transparent; cursor:pointer; transition:transform 0.25s cubic-bezier(.34,1.56,.64,1),border-color 0.2s; position:relative; overflow:hidden; aspect-ratio:2/3.2; display:flex; flex-direction:column; align-items:center; justify-content:space-between; padding:14px 10px; user-select:none; }
+  .ks-tarot-card:hover { transform:translateY(-6px) scale(1.02); }
+  .ks-tarot-card.ks-sel { transform:translateY(-10px) scale(1.04); }
+  .ks-tarot-card.ks-sel .ks-chk { opacity:1; transform:scale(1); }
+  .ks-card-pat { position:absolute; inset:0; pointer-events:none; }
+  .ks-roman { font-family:'Cinzel',serif; font-size:11px; letter-spacing:0.14em; position:relative; z-index:1; opacity:0.7; }
+  .ks-sigil { font-size:36px; line-height:1; position:relative; z-index:1; }
+  .ks-cname { font-family:'Cinzel',serif; font-size:10px; letter-spacing:0.12em; text-transform:uppercase; text-align:center; position:relative; z-index:1; line-height:1.4; }
+  .ks-chk { position:absolute; top:8px; right:8px; width:20px; height:20px; border-radius:50%; display:flex; align-items:center; justify-content:center; opacity:0; transform:scale(0.4); transition:opacity 0.2s,transform 0.2s cubic-bezier(.34,1.56,.64,1); z-index:2; font-size:11px; font-weight:700; }
+</style>
+</head>
+<body>
+
+<!-- GATE -->
+<div id="gate">
+  <div class="gate-sigil">✦</div>
+  <h2>Kellz Spellz<br>× Madrazall Built</h2>
+  <p>This proposal is protected. Enter the passphrase to continue.</p>
+  <div id="gate-form">
+    <input type="password" id="pw-input" placeholder="passphrase" autocomplete="off" />
+    <button id="pw-btn" onclick="checkPW()">Enter</button>
+  </div>
+  <p id="pw-error">That's not it — try again.</p>
+</div>
+
+<!-- MAIN PROPOSAL -->
+<div id="main">
+
+  <div class="doc-header">
+    <div class="doc-meta">
+      <div>
+        <div class="doc-title">Web Build Proposal</div>
+        <div class="doc-subtitle">Kellz Spellz · Full E-Commerce Store Build</div>
+      </div>
+      <div class="from-block">
+        <strong>Madrazall Built</strong>
+        Darcy J. Madrazo<br>
+        madrazodarcy@gmail.com<br>
+        (860) 348-7466<br>
+        <span style="font-size:11px; color: var(--faint);">Prepared: June 4, 2026</span>
+      </div>
+    </div>
+    <div class="header-rule"></div>
+  </div>
+
+  <!-- VISION -->
+  <div class="section">
+    <div class="section-label">The Vision</div>
+    <p>Kelly, you've already got something real — a loyal community, a beautiful product line, and a face-to-face energy that people clearly connect with. This build is about giving that energy a home online. Not just a store, but an <em>experience</em> — one that feels like you walked them through it yourself.</p>
+    <div class="callout">
+      The goal: a self-contained, easy-to-manage online store where customers can browse, vibe with the products, and check out on their own — without you having to be in the inbox for every order.
+    </div>
+    <p>The site will lead with your crystals (your priority inventory) and feature your intention candles as the signature product line. Every product page will feel intentional — not generic. Custom orders and shipping will be built in from day one.</p>
+  </div>
+
+  <!-- DELIVERABLES -->
+  <div class="section">
+    <div class="section-label">What's Included</div>
+    <div class="deliverables">
+      <div class="d-card">
+        <div class="d-card-title">Full e-commerce store</div>
+        <div class="d-card-body">Product pages, cart, checkout, shipping (USPS + UPS), order confirmation emails</div>
+      </div>
+      <div class="d-card">
+        <div class="d-card-title">Crystal catalog</div>
+        <div class="d-card-body">Up to 15 SKUs + one-of-a-kind listings; inventory flagging for low/sold-out stock</div>
+      </div>
+      <div class="d-card">
+        <div class="d-card-title">Candle catalog</div>
+        <div class="d-card-body">All current intentions listed; 2oz + custom candle order flow built in</div>
+      </div>
+      <div class="d-card">
+        <div class="d-card-title">Custom order form</div>
+        <div class="d-card-body">Dedicated page for made-to-request candles, crystals, and bundles</div>
+      </div>
+      <div class="d-card">
+        <div class="d-card-title">Visual brand refresh</div>
+        <div class="d-card-body">New palette, fonts, and layout — built around your purple logo and elevated vibe</div>
+      </div>
+      <div class="d-card">
+        <div class="d-card-title">About + intention pages</div>
+        <div class="d-card-body">"Who am I?" story page + intention guide to help shoppers pick the right product</div>
+      </div>
+      <div class="d-card">
+        <div class="d-card-title">Reviews integration</div>
+        <div class="d-card-body">Existing reviews pulled in; new review collection set up post-purchase</div>
+      </div>
+      <div class="d-card">
+        <div class="d-card-title">Facebook + email list</div>
+        <div class="d-card-body">Social links + mailing list signup — kept and improved from your current site</div>
+      </div>
+      <div class="d-card">
+        <div class="d-card-title">Handoff + training</div>
+        <div class="d-card-body">Written walkthrough doc + screen recording so you can manage everything yourself after launch</div>
+      </div>
+    </div>
+    <p class="muted">Platform recommendation: Shopify — easiest for self-management post-handoff, built-in shipping integrations. Final platform confirmed at kickoff.</p>
+  </div>
+
+  <!-- PALETTE PICKER -->
+  <div class="section">
+    <div class="section-label">Choose Your Vibe</div>
+    <p>Before we build anything, you get to pick the feel. Tap a card below to preview how each color scheme looks on a real site mockup — product cards, nav, hero, everything. Whichever one speaks to you, that's where we start.</p>
+    <div style="margin-top: 1.25rem;">
+
+      <!-- Cards row -->
+      <div style="font-family:'Cinzel',serif; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--muted); margin-bottom:1rem; text-align:center;">Tap a card to preview</div>
+      <div id="ksCardRow" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:14px; margin-bottom:1.5rem;"></div>
+
+      <!-- Preview panel -->
+      <div id="ksPreview" style="border-radius:14px; overflow:hidden; display:none; margin-bottom:1rem;"></div>
+
+      <!-- Chosen label -->
+      <div id="ksChosenBadge" style="display:none; text-align:center; margin-top:0.75rem; font-family:'Cinzel',serif; font-size:13px; letter-spacing:0.08em; color:var(--purple-light);"></div>
+    </div>
+  </div>
+
+  <!-- PRICING -->
+  <div class="section">
+    <div class="section-label">Pricing</div>
+    <div class="notice">
+      <strong>First-build rate:</strong> This is a discounted rate applied as a first-build courtesy — this is my first time building a full store independently. You're getting real, professional-grade work at a reduced price in exchange for honest feedback and a portfolio feature.
+    </div>
+    <table class="price-table">
+      <thead>
+        <tr>
+          <th>Line item</th>
+          <th style="text-align:right">Standard</th>
+          <th style="text-align:right">Your rate</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="item-name">Full e-commerce store design & build</div>
+            <div class="item-sub">All pages, product setup, checkout, shipping</div>
+          </td>
+          <td class="std-amt">$1,200</td>
+          <td class="your-amt">$650</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="item-name">Crystal & candle catalog setup</div>
+            <div class="item-sub">Up to 25 total listings, photos uploaded, descriptions formatted</div>
+          </td>
+          <td class="std-amt">$300</td>
+          <td class="your-amt">$150</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="item-name">Brand refresh</div>
+            <div class="item-sub">New color palette, typography, layout direction</div>
+          </td>
+          <td class="std-amt">$250</td>
+          <td class="your-amt included">Included</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="item-name">Custom order form + flow</div>
+          </td>
+          <td class="std-amt">$150</td>
+          <td class="your-amt included">Included</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="item-name">Handoff doc + training walkthrough</div>
+            <div class="item-sub">Written guide + screen recording for self-management</div>
+          </td>
+          <td class="std-amt">$100</td>
+          <td class="your-amt included">Included</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="item-name">30-day post-launch support</div>
+            <div class="item-sub">Bug fixes, small tweaks, questions via text/email</div>
+          </td>
+          <td class="std-amt">$200</td>
+          <td class="your-amt included">Included</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="total-box">
+      <div>
+        <div class="total-label">Project Total</div>
+        <div class="total-note">
+          Deposit due at signing · balance due at launch<br>
+          Platform/hosting fees paid by client (est. ~$39/mo Shopify)
+        </div>
+      </div>
+      <div>
+        <div class="total-amt">$800</div>
+        <div class="total-save">You save $1,200+</div>
+      </div>
+    </div>
+
+    <div class="pay-options">
+      <div class="pay-card">
+        <div class="pay-method">Stripe Invoice</div>
+        <div class="pay-total">$800</div>
+        <div class="pay-split">$450 deposit<br>$350 at launch</div>
+      </div>
+      <div class="pay-card">
+        <div class="pay-method">Cash App · $madrazall</div>
+        <div class="pay-total">$800</div>
+        <div class="pay-split">$450 deposit<br>$350 at launch</div>
+      </div>
+      <div class="pay-card" style="border-color: rgba(228,184,74,0.2); background: var(--gold-dim);">
+        <div class="pay-method" style="color: var(--gold);">Cash in Hand ✦</div>
+        <div class="pay-total" style="color: var(--gold);">$750</div>
+        <div class="pay-split" style="color: #c49a3a;">$400 deposit<br>$350 at launch</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="section">
+    <div class="section-label">Timeline</div>
+    <div class="timeline">
+      <div class="phase">
+        <div class="phase-num">1</div>
+        <div class="phase-content">
+          <div class="phase-title">Kickoff + content collection</div>
+          <div class="phase-detail">Crystal list, candle list, logo file, any photos you have. Confirm platform. You send; I organize.</div>
+        </div>
+        <div class="phase-dur">Week 1</div>
+      </div>
+      <div class="phase">
+        <div class="phase-num">2</div>
+        <div class="phase-content">
+          <div class="phase-title">Design direction + homepage mockup</div>
+          <div class="phase-detail">You approve look and feel before we build. One revision round included.</div>
+        </div>
+        <div class="phase-dur">Week 1–2</div>
+      </div>
+      <div class="phase">
+        <div class="phase-num">3</div>
+        <div class="phase-content">
+          <div class="phase-title">Full build</div>
+          <div class="phase-detail">All pages, all products, checkout, shipping, custom order form, reviews.</div>
+        </div>
+        <div class="phase-dur">Week 2–4</div>
+      </div>
+      <div class="phase">
+        <div class="phase-num">4</div>
+        <div class="phase-content">
+          <div class="phase-title">Review + revisions</div>
+          <div class="phase-detail">You review the full site. Up to 2 rounds of revisions included.</div>
+        </div>
+        <div class="phase-dur">Week 4–5</div>
+      </div>
+      <div class="phase">
+        <div class="phase-num">5</div>
+        <div class="phase-content">
+          <div class="phase-title">Launch + handoff</div>
+          <div class="phase-detail">Site goes live. You get your training doc + walkthrough. 30-day support window opens.</div>
+        </div>
+        <div class="phase-dur">Week 5–6</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHAT WE NEED -->
+  <div class="section">
+    <div class="section-label">What We Need From You to Start</div>
+    <div class="needs-list">
+      <div class="needs-item">Crystal list (even a rough one — 10–15 items, price, any notes)</div>
+      <div class="needs-item">Any product photos you already have</div>
+      <div class="needs-item">Your purple logo file (PNG or original file)</div>
+      <div class="needs-item">Signed agreement + deposit to kick off</div>
+      <div class="needs-item">That's it. The rest, we figure out together.</div>
+    </div>
+  </div>
+
+  <!-- PORTFOLIO CLAUSE -->
+  <div class="section">
+    <div class="section-label">Portfolio Clause</div>
+    <div class="clause-box">
+      By signing this proposal, client agrees to allow Madrazall Built to feature this project (screenshots, site URL, and a brief case study description) in its public portfolio. Client name and brand will be visible unless a written request to remove is made after the fact.
+    </div>
+  </div>
+
+  <!-- SIGNATURE -->
+  <div class="section">
+    <div class="section-label">Agreement</div>
+    <p class="muted" style="margin-bottom: 24px;">By signing below, both parties agree to the scope, pricing, and terms outlined in this proposal.</p>
+    <div class="sig-row">
+      <div class="sig-block">
+        <div class="sig-line"></div>
+        <div class="sig-label">Darcy J. Madrazo — Madrazall Built</div>
+      </div>
+      <div class="sig-block">
+        <div class="sig-line"></div>
+        <div class="sig-label">Kelly — Kellz Spellz · Date</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-footer">
+    <div class="footer-brand">MADRAZALL BUILT</div>
+    <div class="footer-tagline">Same builder logic. Different materials.</div>
+  </div>
+
+</div>
+
+<script>
+  const PASSWORD = "moonandback";
+
+  document.getElementById("pw-input").addEventListener("keydown", function(e) {
+    if (e.key === "Enter") checkPW();
+  });
+
+  function checkPW() {
+    const val = document.getElementById("pw-input").value.trim().toLowerCase();
+    const input = document.getElementById("pw-input");
+    const err = document.getElementById("pw-error");
+
+    if (val === PASSWORD) {
+      document.getElementById("gate").style.opacity = "0";
+      document.getElementById("gate").style.transition = "opacity 0.5s ease";
+      setTimeout(() => {
+        document.getElementById("gate").style.display = "none";
+        const main = document.getElementById("main");
+        main.classList.add("visible");
+      }, 500);
+    } else {
+      input.classList.add("error");
+      err.style.display = "block";
+      setTimeout(() => {
+        input.classList.remove("error");
+        input.value = "";
+      }, 400);
+    }
+  }
+
+  // ── PALETTE PICKER ────────────────────────────────────
+  const KS_SCHEMES = [
+    { id:'midnight', roman:'I', name:'Midnight Ritual', sigil:'🌙', tagline:'Deep & Witchy',
+      cardBg:'linear-gradient(160deg,#1a0a2e 0%,#2d1554 50%,#1a0a2e 100%)', cardText:'#e8d5ff', cardAccent:'#c77dff',
+      ps:'rgba(199,125,255,0.3)', pr:'rgba(199,125,255,0.15)',
+      siteBg:'#0f0720', surfBg:'#1a0a2e', cBorder:'rgba(199,125,255,0.25)', navBorder:'rgba(199,125,255,0.15)',
+      hTitle:'#e8d5ff', hSub:'#b89fd4', btnBg:'#7b2d8b', btnTxt:'#fff',
+      sw:['#1a0a2e','#7b2d8b','#c77dff','#e8d5ff'], swBorder:'rgba(199,125,255,0.2)',
+      prodBg:'#200d38', prodBorder:'rgba(199,125,255,0.18)', prodName:'#b89fd4', prodPrice:'#c77dff',
+      chkBg:'rgba(255,255,255,0.9)', chkClr:'#7b2d8b', selBorder:'#c77dff',
+      products:[{i:'💎',n:'Rose Quartz',p:'$18'},{i:'🕯️',n:'Abundance',p:'$11'},{i:'🔮',n:'Amethyst',p:'$22'}] },
+    { id:'lavender', roman:'II', name:'Lavender Moon', sigil:'🌸', tagline:'Soft & Dreamy',
+      cardBg:'linear-gradient(160deg,#f0eaff 0%,#ddd0f7 50%,#f0eaff 100%)', cardText:'#3d2565', cardAccent:'#8b5cf6',
+      ps:'rgba(139,92,246,0.25)', pr:'rgba(139,92,246,0.12)',
+      siteBg:'#faf7ff', surfBg:'#f0eaff', cBorder:'rgba(139,92,246,0.2)', navBorder:'rgba(139,92,246,0.15)',
+      hTitle:'#3d2565', hSub:'#7c5ba8', btnBg:'#8b5cf6', btnTxt:'#fff',
+      sw:['#ddd0f7','#8b5cf6','#c4b5fd','#3d2565'], swBorder:'rgba(139,92,246,0.2)',
+      prodBg:'#fff', prodBorder:'rgba(139,92,246,0.2)', prodName:'#7c5ba8', prodPrice:'#8b5cf6',
+      chkBg:'#8b5cf6', chkClr:'#fff', selBorder:'#8b5cf6',
+      products:[{i:'💜',n:'Amethyst',p:'$22'},{i:'🕯️',n:'Sweet Dreams',p:'$11'},{i:'🌙',n:'Moonstone',p:'$24'}] },
+    { id:'celestial', roman:'III', name:'Celestial Witch', sigil:'⭐', tagline:'Mystic & Starlit',
+      cardBg:'linear-gradient(160deg,#060d1f 0%,#0f1f3d 50%,#060d1f 100%)', cardText:'#d4e8ff', cardAccent:'#5ba4f5',
+      ps:'rgba(91,164,245,0.3)', pr:'rgba(91,164,245,0.12)',
+      siteBg:'#03080f', surfBg:'#060d1f', cBorder:'rgba(91,164,245,0.2)', navBorder:'rgba(91,164,245,0.15)',
+      hTitle:'#d4e8ff', hSub:'#8ab6e0', btnBg:'#1e4f91', btnTxt:'#d4e8ff',
+      sw:['#060d1f','#1e4f91','#5ba4f5','#d4e8ff'], swBorder:'rgba(91,164,245,0.2)',
+      prodBg:'#0a1428', prodBorder:'rgba(91,164,245,0.18)', prodName:'#8ab6e0', prodPrice:'#5ba4f5',
+      chkBg:'rgba(255,255,255,0.9)', chkClr:'#1e4f91', selBorder:'#5ba4f5',
+      products:[{i:'💫',n:'Labradorite',p:'$28'},{i:'🕯️',n:'Starseed',p:'$11'},{i:'🌙',n:'Moonstone',p:'$24'}] },
+    { id:'garden', roman:'IV', name:'Enchanted Garden', sigil:'🌿', tagline:'Fresh & Whimsical',
+      cardBg:'linear-gradient(160deg,#edfaf3 0%,#d0f0e0 50%,#edfaf3 100%)', cardText:'#1a4535', cardAccent:'#34a068',
+      ps:'rgba(52,160,104,0.25)', pr:'rgba(52,160,104,0.12)',
+      siteBg:'#f4fdf8', surfBg:'#edfaf3', cBorder:'rgba(52,160,104,0.2)', navBorder:'rgba(52,160,104,0.15)',
+      hTitle:'#1a4535', hSub:'#4a8a6a', btnBg:'#34a068', btnTxt:'#fff',
+      sw:['#d0f0e0','#34a068','#a8dfc0','#1a4535'], swBorder:'rgba(52,160,104,0.2)',
+      prodBg:'#fff', prodBorder:'rgba(52,160,104,0.2)', prodName:'#4a8a6a', prodPrice:'#34a068',
+      chkBg:'#34a068', chkClr:'#fff', selBorder:'#34a068',
+      products:[{i:'🌱',n:'Green Aventurine',p:'$15'},{i:'🕯️',n:'Prosperity',p:'$11'},{i:'🪨',n:'Jade',p:'$19'}] },
+  ];
+
+  let ksSel = null;
+
+  function ksBuildPat(s) {
+    const pts = [0,45,90,135].map(a=>`<line x1="${(80+70*Math.cos(a*Math.PI/180)).toFixed(1)}" y1="${(128+70*Math.sin(a*Math.PI/180)).toFixed(1)}" x2="${(80-70*Math.cos(a*Math.PI/180)).toFixed(1)}" y2="${(128-70*Math.sin(a*Math.PI/180)).toFixed(1)}" stroke="${s.pr}" stroke-width="0.5"/>`).join('');
+    return `<svg class="ks-card-pat" viewBox="0 0 160 256" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="10" width="140" height="236" rx="8" fill="none" stroke="${s.ps}" stroke-width="0.5"/><rect x="18" y="18" width="124" height="220" rx="6" fill="none" stroke="${s.pr}" stroke-width="0.5"/><circle cx="80" cy="128" r="30" fill="none" stroke="${s.ps}" stroke-width="0.5"/><circle cx="80" cy="128" r="52" fill="none" stroke="${s.pr}" stroke-width="0.5"/>${pts}<circle cx="80" cy="128" r="4" fill="${s.ps}"/></svg>`;
+  }
+
+  function ksRenderCards() {
+    const row = document.getElementById('ksCardRow');
+    if (!row) return;
+    row.innerHTML = '';
+    KS_SCHEMES.forEach(s => {
+      const c = document.createElement('div');
+      c.className = 'ks-tarot-card' + (ksSel===s.id?' ks-sel':'');
+      c.style.cssText = `background:${s.cardBg};color:${s.cardText};border-color:${ksSel===s.id?s.selBorder:'transparent'};`;
+      c.innerHTML = ksBuildPat(s) +
+        `<div class="ks-roman" style="color:${s.cardAccent}">${s.roman}</div>` +
+        `<div class="ks-sigil">${s.sigil}</div>` +
+        `<div style="text-align:center;position:relative;z-index:1"><div class="ks-cname" style="color:${s.cardText}">${s.name}</div><div style="font-size:10px;opacity:0.55;margin-top:4px;font-style:italic">${s.tagline}</div></div>` +
+        `<div class="ks-chk" style="background:${s.chkBg};color:${s.chkClr}">✓</div>`;
+      c.addEventListener('click', () => ksSelect(s.id));
+      row.appendChild(c);
+    });
+  }
+
+  function ksRenderPreview(id) {
+    const s = KS_SCHEMES.find(x=>x.id===id);
+    const panel = document.getElementById('ksPreview');
+    if (!panel) return;
+    panel.style.cssText = `border-radius:14px;overflow:hidden;border:0.5px solid ${s.cBorder};margin-bottom:1rem;`;
+    panel.style.display = 'block';
+    const swDots = s.sw.map(c=>`<div style="width:26px;height:26px;border-radius:50%;background:${c};border:1.5px solid ${s.swBorder};flex-shrink:0"></div>`).join('');
+    const prods = s.products.map(p=>`<div style="border-radius:10px;padding:10px 8px;text-align:center;border:0.5px solid ${s.prodBorder};background:${s.prodBg}"><div style="font-size:20px;margin-bottom:5px">${p.i}</div><div style="font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:${s.prodName}">${p.n}</div><div style="font-family:'Cinzel',serif;font-size:12px;margin-top:4px;color:${s.prodPrice}">${p.p}</div></div>`).join('');
+    panel.innerHTML =
+      `<div style="padding:18px 22px 14px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;background:${s.surfBg}"><div><div style="font-family:'Cinzel',serif;font-size:15px;font-weight:500;color:${s.hTitle}">✦ Kellz Spellz</div><div style="font-size:12px;margin-top:3px;color:${s.hSub}">Enchanted candles & crystals</div></div><div style="width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;background:${s.prodBg};border:1px solid ${s.cBorder};color:${s.cardAccent};flex-shrink:0">✦</div></div>` +
+      `<div style="padding:8px 22px;display:flex;gap:18px;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;border-top:0.5px solid ${s.navBorder};background:${s.surfBg};color:${s.hSub};opacity:0.9"><span>Home</span><span>Crystals</span><span>Candles</span><span>Custom</span></div>` +
+      `<div style="padding:24px 22px 18px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;background:${s.siteBg}"><div style="font-size:26px;margin-bottom:4px">${s.sigil}</div><div style="font-family:'Cinzel',serif;font-size:17px;font-weight:500;letter-spacing:0.06em;line-height:1.3;color:${s.hTitle}">Reiki & Crystal Infused</div><div style="font-size:13px;max-width:280px;line-height:1.6;color:${s.hSub}">Hand crafted and intentionally designed for all your magical needs</div><button style="margin-top:8px;padding:9px 22px;border-radius:8px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.1em;border:none;cursor:default;background:${s.btnBg};color:${s.btnTxt}">Shop Now</button></div>` +
+      `<div style="padding:10px 22px;display:flex;gap:8px;align-items:center;border-top:0.5px solid ${s.navBorder};background:${s.surfBg}">${swDots}<div style="font-size:11px;letter-spacing:0.08em;text-transform:uppercase;opacity:0.5;margin-left:auto;color:${s.hSub}">${s.name}</div></div>` +
+      `<div style="padding:14px 22px 22px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;background:${s.siteBg}">${prods}</div>`;
+
+    const badge = document.getElementById('ksChosenBadge');
+    if (badge) { badge.style.display='none'; }
+  }
+
+  function ksSelect(id) {
+    ksSel = id;
+    ksRenderCards();
+    ksRenderPreview(id);
+  }
+
+  ksRenderCards();
+
+</script>
+</body>
+</html>
