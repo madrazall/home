@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Website Proposal — Preferred Electric | Madrazall Built</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black:      #08080a;
+    --deep:       #0d0d10;
+    --panel:      #111116;
+    --surface:    #16161e;
+    --border:     #252530;
+    --border-hi:  #383848;
+    --yellow:     #f5c400;
+    --yellow-hot: #ffe033;
+    --yellow-dim: #a88800;
+    --yellow-glow:rgba(245,196,0,0.14);
+    --yellow-trace:rgba(245,196,0,0.05);
+    --white:      #ececec;
+    --gray:       #777;
+    --gray-lt:    #555;
+    --cyan:       #00c8e0;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 1.5rem 4rem;
+  }
+
+  /* grid texture */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(245,196,0,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(245,196,0,0.025) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  /* scanlines */
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background: repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.06) 3px,rgba(0,0,0,0.06) 4px);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  /* ── COVER ── */
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 4rem 0 3rem;
+    position: relative;
+  }
+
+  .cover-stripe {
+    height: 4px;
+    background: repeating-linear-gradient(-45deg, var(--yellow) 0, var(--yellow) 8px, transparent 8px, transparent 16px);
+    margin-bottom: 3rem;
+    opacity: 0.6;
+  }
+
+  .from-tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--yellow-dim);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  .cover-to {
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    font-size: clamp(2.6rem, 6vw, 5rem);
+    line-height: 0.95;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+
+  .cover-to span {
+    color: var(--yellow);
+    text-shadow: 0 0 30px rgba(245,196,0,0.35);
+    display: block;
+  }
+
+  .cover-sub {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    letter-spacing: 0.15em;
+    color: var(--gray);
+    text-transform: uppercase;
+    margin-bottom: 3rem;
+  }
+
+  .cover-meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 3rem;
+    overflow: hidden;
+    clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+  }
+
+  .meta-cell {
+    background: var(--panel);
+    padding: 1rem 1.25rem;
+  }
+
+  .meta-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.28em;
+    color: var(--yellow-dim);
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+  }
+
+  .meta-value {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--white);
+    letter-spacing: 0.04em;
+  }
+
+  .cover-intro {
+    font-size: 1.05rem;
+    font-weight: 400;
+    color: #888;
+    max-width: 680px;
+    line-height: 1.7;
+    border-left: 2px solid var(--yellow-dim);
+    padding-left: 1.25rem;
+  }
+
+  .cover-intro strong { color: var(--yellow); font-weight: 600; }
+
+  .cover-stripe-bottom {
+    height: 4px;
+    background: repeating-linear-gradient(-45deg, var(--yellow) 0, var(--yellow) 8px, transparent 8px, transparent 16px);
+    margin-top: 3rem;
+    opacity: 0.6;
+  }
+
+  /* ── SECTION STRUCTURE ── */
+  .page-break {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 4rem 0;
+    position: relative;
+  }
+
+  .page-break::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0; top: 50%;
+    transform: translateY(-50%);
+    background: var(--black);
+    padding-right: 1rem;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: var(--yellow-dim);
+    text-transform: uppercase;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .section-num {
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    font-size: 0.7rem;
+    color: var(--yellow);
+    letter-spacing: 0.15em;
+    opacity: 0.6;
+  }
+
+  h2 {
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: var(--white);
+    letter-spacing: 0.06em;
+    margin-bottom: 1.5rem;
+  }
+
+  h2 em {
+    color: var(--yellow);
+    font-style: normal;
+  }
+
+  p {
+    color: #888;
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+    letter-spacing: 0.03em;
+  }
+
+  p strong { color: var(--white); font-weight: 600; }
+
+  /* ── DELIVERABLE CARDS ── */
+  .deliverables {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .del-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    display: grid;
+    grid-template-columns: 3rem 1fr;
+    gap: 1rem;
+    align-items: start;
+    transition: border-color 0.2s;
+    clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
+    position: relative;
+  }
+
+  .del-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, var(--yellow), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .del-card:hover { border-color: var(--border-hi); }
+  .del-card:hover::after { opacity: 1; }
+
+  .del-num {
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    font-size: 1.4rem;
+    color: var(--yellow);
+    opacity: 0.35;
+    line-height: 1;
+    padding-top: 0.1rem;
+  }
+
+  .del-title {
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--white);
+    letter-spacing: 0.08em;
+    margin-bottom: 0.4rem;
+  }
+
+  .del-desc {
+    color: var(--gray);
+    font-size: 0.95rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.55;
+  }
+
+  .del-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.15em;
+    color: var(--yellow-dim);
+    border: 1px solid rgba(245,196,0,0.18);
+    padding: 0.2rem 0.5rem;
+    text-transform: uppercase;
+    background: var(--yellow-trace);
+  }
+
+  /* ── CHECKLIST ── */
+  .checklist {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    font-size: 0.95rem;
+    color: #888;
+    padding: 0.5rem 0.75rem;
+    border-left: 2px solid var(--border);
+    transition: border-color 0.2s;
+  }
+
+  .checklist li:hover { border-left-color: var(--yellow-dim); color: var(--gray); }
+
+  .checklist li::before {
+    content: '⚡';
+    font-size: 0.7rem;
+    color: var(--yellow);
+    margin-top: 0.1rem;
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 4px rgba(245,196,0,0.5));
+  }
+
+  .checklist li strong { color: var(--white); font-weight: 600; }
+
+  /* ── TIMELINE ── */
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 1.4rem;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--yellow-dim), transparent);
+  }
+
+  .tl-row {
+    display: grid;
+    grid-template-columns: 3rem 1fr;
+    gap: 1rem;
+    padding-bottom: 2rem;
+    position: relative;
+  }
+
+  .tl-dot {
+    width: 12px; height: 12px;
+    background: var(--yellow);
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(245,196,0,0.5);
+    margin-top: 0.3rem;
+    margin-left: 0.85rem;
+    flex-shrink: 0;
+    z-index: 1;
+  }
+
+  .tl-week {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    color: var(--yellow-dim);
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
+  }
+
+  .tl-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--white);
+    letter-spacing: 0.06em;
+    margin-bottom: 0.2rem;
+  }
+
+  .tl-desc {
+    font-size: 0.9rem;
+    color: var(--gray);
+    line-height: 1.5;
+  }
+
+  /* ── PRICING CARDS ── */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .price-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px));
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .price-card:hover {
+    border-color: var(--yellow-dim);
+    transform: translateY(-4px);
+  }
+
+  .price-card.featured {
+    border-color: var(--yellow-dim);
+    background: linear-gradient(135deg, var(--panel), rgba(245,196,0,0.04));
+  }
+
+  .price-card.featured::before {
+    content: '// RECOMMENDED';
+    position: absolute;
+    top: 1rem; right: -2rem;
+    background: var(--yellow);
+    color: var(--black);
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    font-size: 0.5rem;
+    letter-spacing: 0.15em;
+    padding: 0.25rem 3rem;
+    transform: rotate(35deg);
+  }
+
+  .price-tier {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: var(--yellow-dim);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .price-name {
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--white);
+    margin-bottom: 1rem;
+    letter-spacing: 0.06em;
+  }
+
+  .price-amount {
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    font-size: 2.4rem;
+    color: var(--yellow);
+    line-height: 1;
+    text-shadow: 0 0 20px rgba(245,196,0,0.3);
+    margin-bottom: 0.2rem;
+  }
+
+  .price-amount .currency {
+    font-size: 1.1rem;
+    vertical-align: super;
+    opacity: 0.6;
+  }
+
+  .price-note {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--gray-lt);
+    letter-spacing: 0.12em;
+    margin-bottom: 1.5rem;
+  }
+
+  .price-divider {
+    height: 1px;
+    background: var(--border);
+    margin-bottom: 1.25rem;
+  }
+
+  .price-includes {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .price-includes li {
+    font-size: 0.9rem;
+    color: var(--gray);
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .price-includes li::before {
+    content: '▸';
+    color: var(--yellow);
+    font-size: 0.7rem;
+    margin-top: 0.15rem;
+    flex-shrink: 0;
+  }
+
+  /* ── PAYMENT TABLE ── */
+  .payment-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+    font-family: 'Rajdhani', sans-serif;
+  }
+
+  .payment-table thead tr {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .payment-table th {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--yellow-dim);
+    text-transform: uppercase;
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-weight: 400;
+  }
+
+  .payment-table td {
+    font-size: 0.95rem;
+    color: #888;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  .payment-table td strong { color: var(--white); font-weight: 600; }
+  .payment-table td.amt { color: var(--yellow); font-family: 'Orbitron', monospace; font-size: 0.9rem; }
+
+  /* ── TERMS BOX ── */
+  .terms-box {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--yellow-dim);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+  }
+
+  .terms-box .terms-title {
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    font-size: 0.75rem;
+    color: var(--yellow);
+    letter-spacing: 0.12em;
+    margin-bottom: 0.75rem;
+  }
+
+  .terms-box p {
+    font-size: 0.88rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+  }
+
+  .terms-box p:last-child { margin-bottom: 0; }
+
+  /* ── SIGNATURE ── */
+  .sig-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  @media (max-width: 600px) {
+    .sig-grid { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr; }
+  }
+
+  .sig-block {
+    border-top: 1px solid var(--border);
+    padding-top: 0.75rem;
+  }
+
+  .sig-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    color: var(--yellow-dim);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  .sig-line {
+    height: 36px;
+    border-bottom: 1px solid var(--border-hi);
+    margin-bottom: 0.4rem;
+  }
+
+  .sig-name {
+    font-size: 0.85rem;
+    color: #555;
+    letter-spacing: 0.06em;
+  }
+
+  /* ── FOOTER ── */
+  .doc-footer {
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .footer-brand {
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    font-size: 0.75rem;
+    color: var(--cyan);
+    letter-spacing: 0.12em;
+  }
+
+  .footer-meta {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.58rem;
+    color: #333;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-align: right;
+  }
+
+  /* callout */
+  .callout {
+    background: rgba(245,196,0,0.04);
+    border: 1px solid rgba(245,196,0,0.15);
+    border-left: 3px solid var(--yellow);
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    color: #888;
+    line-height: 1.6;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+  }
+
+  .callout strong { color: var(--yellow); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     COVER
+══════════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-stripe"></div>
+
+  <div class="from-tag">// Proposal prepared by</div>
+  <div style="font-family:'Orbitron',monospace;font-weight:900;font-size:1rem;color:var(--cyan);letter-spacing:0.12em;margin-bottom:1.5rem;">
+    MADRAZALL BUILT
+  </div>
+
+  <h1 class="cover-to">
+    PREFERRED
+    <span>ELECTRIC</span>
+  </h1>
+  <div class="cover-sub">Website Design &amp; Build · Berlin, Connecticut</div>
+
+  <div class="cover-meta-grid">
+    <div class="meta-cell">
+      <div class="meta-label">// Prepared For</div>
+      <div class="meta-value">Preferred Electric LLC</div>
+    </div>
+    <div class="meta-cell">
+      <div class="meta-label">// Prepared By</div>
+      <div class="meta-value">Darcy Madrazo · Madrazall Built</div>
+    </div>
+    <div class="meta-cell">
+      <div class="meta-label">// Date</div>
+      <div class="meta-value">June 2025</div>
+    </div>
+    <div class="meta-cell">
+      <div class="meta-label">// Valid For</div>
+      <div class="meta-value">30 Days from Issue</div>
+    </div>
+    <div class="meta-cell">
+      <div class="meta-label">// Contact</div>
+      <div class="meta-value">(860) 348-7466</div>
+    </div>
+    <div class="meta-cell">
+      <div class="meta-label">// Email</div>
+      <div class="meta-value">madrazodarcy@gmail.com</div>
+    </div>
+  </div>
+
+  <p class="cover-intro">
+    You've spent years building a reputation doing the work right the first time. Your website should say the same thing. 
+    This proposal outlines a <strong>complete custom website build</strong> for Preferred Electric — designed to generate quote requests, 
+    communicate professionalism, and work as hard as you do. <strong>No templates. No drag-and-drop builder junk. 
+    A real site, built to spec, that actually looks like you mean business.</strong>
+  </p>
+
+  <div class="cover-stripe-bottom"></div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     SECTION 01 — THE SITUATION
+══════════════════════════════════════ -->
+<hr class="page-break" data-label="// Section 01">
+
+<div class="section-header">
+  <span class="section-num">01</span>
+  <h2>The <em>Situation</em></h2>
+</div>
+
+<p>
+  Most electrical contractors in Connecticut are either using a generic template site from 2014, 
+  a half-finished Wix page someone's nephew set up, or nothing at all. That's actually good news — 
+  because it means a well-built site gives you a <strong>visible edge</strong> the moment someone 
+  Googles "electrician Berlin CT" at 9pm with a blown breaker.
+</p>
+
+<p>
+  Your clients are homeowners, property managers, and business owners. They're comparing you to 
+  whoever else shows up in search results. <strong>A professional, fast-loading, mobile-friendly site 
+  with a clear quote request form converts that comparison into a call.</strong>
+</p>
+
+<div class="callout">
+  <strong>The goal isn't just a website.</strong> It's a lead-generating asset that works on nights and weekends 
+  when the phone is off — and makes sure every potential customer that finds you online sees exactly 
+  why Preferred Electric is the right call.
+</div>
+
+
+<!-- ══════════════════════════════════════
+     SECTION 02 — DELIVERABLES
+══════════════════════════════════════ -->
+<hr class="page-break" data-label="// Section 02">
+
+<div class="section-header">
+  <span class="section-num">02</span>
+  <h2>What Gets <em>Built</em></h2>
+</div>
+
+<p>Here's exactly what you're getting. No vague "design and development" — every component spelled out.</p>
+
+<div class="deliverables">
+
+  <div class="del-card">
+    <div class="del-num">01</div>
+    <div>
+      <div class="del-title">Custom Website Design</div>
+      <div class="del-desc">
+        A fully custom site designed around your brand — not a modified theme or template. 
+        Dark, bold, high-contrast design with yellow accents that says "we take our work seriously." 
+        Built specifically for the electrical trade, not recycled from a plumbing or HVAC layout.
+      </div>
+      <div class="del-tags">
+        <span class="tag">Custom Design</span>
+        <span class="tag">Brand Aligned</span>
+        <span class="tag">No Templates</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="del-card">
+    <div class="del-num">02</div>
+    <div>
+      <div class="del-title">Mobile-First, Responsive Build</div>
+      <div class="del-desc">
+        Over 70% of local service searches happen on a phone. Your site will be built mobile-first, 
+        so it loads fast and looks sharp on every screen — phone, tablet, desktop. 
+        Tap-to-call button is front and center on mobile.
+      </div>
+      <div class="del-tags">
+        <span class="tag">Mobile-First</span>
+        <span class="tag">Fast Load</span>
+        <span class="tag">Tap-to-Call</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="del-card">
+    <div class="del-num">03</div>
+    <div>
+      <div class="del-title">Core Pages (Up to 6)</div>
+      <div class="del-desc">
+        Home, Services, About, Contact/Quote Request, Service Area, and one optional specialty page 
+        (Emergency Calls, EV Chargers, Panel Upgrades — your call). 
+        Each page is content-complete, not just a placeholder.
+      </div>
+      <div class="del-tags">
+        <span class="tag">6 Pages</span>
+        <span class="tag">Full Content</span>
+        <span class="tag">SEO Structured</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="del-card">
+    <div class="del-num">04</div>
+    <div>
+      <div class="del-title">Quote Request Form</div>
+      <div class="del-desc">
+        A working contact/quote request form that captures name, phone, email, service type, 
+        address, and job description — and emails it directly to you. No monthly fees, 
+        no third-party portal your customer has to log into.
+      </div>
+      <div class="del-tags">
+        <span class="tag">Lead Capture</span>
+        <span class="tag">Direct Email</span>
+        <span class="tag">No Monthly Fee</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="del-card">
+    <div class="del-num">05</div>
+    <div>
+      <div class="del-title">Basic SEO Setup</div>
+      <div class="del-desc">
+        SEO stands for Search Engine Optimization — it's basically how Google decides whether 
+        your site shows up when someone types "electrician Berlin CT" into their phone. 
+        Without it, your site can exist and still be invisible. With it, you have a real shot 
+        at appearing in front of people who are already looking to hire someone like you.<br><br>
+        What gets configured: page titles, meta descriptions, heading structure, image alt text, 
+        and Google Business integration guidance — the foundational work that gets you 
+        indexed correctly and showing up for local searches in Berlin and surrounding towns.
+      </div>
+      <div class="del-tags">
+        <span class="tag">On-Page SEO</span>
+        <span class="tag">Google Business</span>
+        <span class="tag">Local Search</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="del-card">
+    <div class="del-num">06</div>
+    <div>
+      <div class="del-title">Hosting Setup &amp; Launch</div>
+      <div class="del-desc">
+        I'll handle domain connection, SSL certificate, hosting configuration, and full launch. 
+        You'll also get a walkthrough so you know how to update your phone number, hours, 
+        or add a photo without needing to call someone every time.
+      </div>
+      <div class="del-tags">
+        <span class="tag">Hosting Config</span>
+        <span class="tag">SSL Included</span>
+        <span class="tag">Handoff Training</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="del-card">
+    <div class="del-num">07</div>
+    <div>
+      <div class="del-title">30-Day Post-Launch Support</div>
+      <div class="del-desc">
+        For 30 days after your site goes live, I'm available for fixes, tweaks, 
+        content updates, and questions. If something's broken or off, I handle it. 
+        After that, maintenance can be added at a flat monthly rate.
+      </div>
+      <div class="del-tags">
+        <span class="tag">30-Day Window</span>
+        <span class="tag">Bug Fixes</span>
+        <span class="tag">Content Updates</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ══════════════════════════════════════
+     SECTION 03 — WHAT I NEED FROM YOU
+══════════════════════════════════════ -->
+<hr class="page-break" data-label="// Section 03">
+
+<div class="section-header">
+  <span class="section-num">03</span>
+  <h2>What I Need <em>From You</em></h2>
+</div>
+
+<p>
+  I do the heavy lifting. You provide the raw material — content, photos, and your input 
+  on two design review checkpoints. That's it.
+</p>
+
+<ul class="checklist">
+  <li><strong>Your logo</strong> — or we discuss whether a refresh is part of the scope</li>
+  <li><strong>Any existing photos</strong> of your work, crew, or trucks (phone photos are fine)</li>
+  <li><strong>Your services list</strong> — even a rough one, I can shape it into page content</li>
+  <li><strong>Service area towns</strong> — so we can build out the right local SEO structure</li>
+  <li><strong>Your preferred contact info</strong> — phone, email, whatever you want on the site</li>
+  <li><strong>2 rounds of feedback</strong> — one after the design mockup, one after the live build</li>
+  <li><strong>Deposit to start</strong> — see pricing section below</li>
+</ul>
+
+<p style="margin-top:0.5rem;">
+  No long intake forms. No 12-page content questionnaire. 
+  A short intake call or text exchange is enough to get started.
+</p>
+
+
+<!-- ══════════════════════════════════════
+     SECTION 04 — TIMELINE
+══════════════════════════════════════ -->
+<hr class="page-break" data-label="// Section 04">
+
+<div class="section-header">
+  <span class="section-num">04</span>
+  <h2>Build <em>Timeline</em></h2>
+</div>
+
+<p>Start to launch in <strong style="color:var(--white)">7 days or less</strong> — as long as content and feedback come back promptly, most builds are live well within the week.</p>
+
+<div class="timeline">
+  <div class="tl-row">
+    <div class="tl-dot"></div>
+    <div>
+      <div class="tl-week">// Day 1</div>
+      <div class="tl-title">Kickoff + Discovery</div>
+      <div class="tl-desc">Short intake call or text exchange, content collection, domain/hosting decisions locked in. Design starts same day.</div>
+    </div>
+  </div>
+  <div class="tl-row">
+    <div class="tl-dot"></div>
+    <div>
+      <div class="tl-week">// Days 2–3</div>
+      <div class="tl-title">Design Mockup</div>
+      <div class="tl-desc">Full visual mockup of the homepage and one interior page delivered for your review. You tell me what to adjust — layout, colors, content, anything.</div>
+    </div>
+  </div>
+  <div class="tl-row">
+    <div class="tl-dot"></div>
+    <div>
+      <div class="tl-week">// Days 3–5</div>
+      <div class="tl-title">Full Build</div>
+      <div class="tl-desc">All pages built, form wired up, SEO configured, mobile tested. You'll get a staging link to review before anything goes live.</div>
+    </div>
+  </div>
+  <div class="tl-row">
+    <div class="tl-dot"></div>
+    <div>
+      <div class="tl-week">// Days 6–7</div>
+      <div class="tl-title">Revisions + Launch</div>
+      <div class="tl-desc">Final round of revisions, launch to your live domain, SSL activated, Google Business connection guidance, handoff walkthrough.</div>
+    </div>
+  </div>
+  <div class="tl-row">
+    <div class="tl-dot"></div>
+    <div>
+      <div class="tl-week">// 30 Days Post-Launch</div>
+      <div class="tl-title">Support Window</div>
+      <div class="tl-desc">Fixes, content tweaks, and questions covered. After this window, optional monthly maintenance can be arranged.</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     SECTION 05 — PRICING
+══════════════════════════════════════ -->
+<hr class="page-break" data-label="// Section 05">
+
+<div class="section-header">
+  <span class="section-num">05</span>
+  <h2>Investment <em>Options</em></h2>
+</div>
+
+<p>
+  Three options depending on what you need and how you want to pay. 
+  All three include everything in the deliverables section — the difference is scope add-ons and payment method.
+</p>
+
+<div class="pricing-grid">
+
+  <div class="price-card">
+    <div class="price-tier">// Option A</div>
+    <div class="price-name">Standard Build</div>
+    <div class="price-amount"><span class="currency">$</span>950</div>
+    <div class="price-note">// Stripe or Cash App · split 50/50</div>
+    <div class="price-divider"></div>
+    <ul class="price-includes">
+      <li>All 7 deliverables listed above</li>
+      <li>Up to 6 pages</li>
+      <li>Quote request form</li>
+      <li>Basic SEO setup</li>
+      <li>30-day support window</li>
+      <li>Handoff training walkthrough</li>
+    </ul>
+  </div>
+
+  <div class="price-card featured">
+    <div class="price-tier">// Option B</div>
+    <div class="price-name">Standard + Logo Refresh</div>
+    <div class="price-amount"><span class="currency">$</span>1,150</div>
+    <div class="price-note">// Stripe or Cash App · split 50/50</div>
+    <div class="price-divider"></div>
+    <ul class="price-includes">
+      <li>Everything in Option A</li>
+      <li>Custom logo design (3 concepts)</li>
+      <li>Favicon + social profile versions</li>
+      <li>Logo files delivered in all formats</li>
+      <li>Brand color + font guidance</li>
+    </ul>
+  </div>
+
+  <div class="price-card">
+    <div class="price-tier">// Option C</div>
+    <div class="price-name">Cash Discount</div>
+    <div class="price-amount"><span class="currency">$</span>875</div>
+    <div class="price-note">// Physical cash · paid in two installments</div>
+    <div class="price-divider"></div>
+    <ul class="price-includes">
+      <li>Everything in Option A</li>
+      <li>$75 off for cash payment</li>
+      <li>50% at start · 50% at launch</li>
+      <li>Receipt provided both installments</li>
+    </ul>
+  </div>
+
+</div>
+
+<h2 style="font-size:1rem;margin-bottom:1rem;">Payment <em>Schedule</em></h2>
+
+<table class="payment-table">
+  <thead>
+    <tr>
+      <th>// Milestone</th>
+      <th>// When</th>
+      <th>// Amount (Option A/B)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Deposit</strong> — kicks off the project</td>
+      <td>At signing</td>
+      <td class="amt">50%</td>
+    </tr>
+    <tr>
+      <td><strong>Balance</strong> — due at launch</td>
+      <td>Before site goes live</td>
+      <td class="amt">50%</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="callout">
+  <strong>No hidden fees.</strong> Hosting and domain are your ongoing costs (typically $10–20/mo depending on your provider). 
+  I'll recommend the right setup and help you get it configured — but those accounts are yours, not mine.
+</div>
+
+
+<!-- ══════════════════════════════════════
+     SECTION 06 — ADD-ONS
+══════════════════════════════════════ -->
+<hr class="page-break" data-label="// Section 06">
+
+<div class="section-header">
+  <span class="section-num">06</span>
+  <h2>Optional <em>Add-Ons</em></h2>
+</div>
+
+<p>Not included in base scope but available if you want to go further:</p>
+
+<ul class="checklist">
+  <li><strong>Monthly Maintenance — $50/mo:</strong> content updates, plugin/security updates, uptime monitoring, one design change per month</li>
+  <li><strong>Google Ads Setup — $150 flat:</strong> campaign build, keyword targeting for your service area, and a 30-minute walkthrough on managing your budget</li>
+  <li><strong>Additional Pages — $50 each:</strong> FAQ, Testimonials, Photo Gallery, specific service sub-pages</li>
+  <li><strong>Blog Setup + First 3 Posts — $200:</strong> SEO-optimized articles targeting local search terms ("panel upgrade Berlin CT," "EV charger installation Meriden," etc.)</li>
+  <li><strong>Social Media Profile Setup — $100:</strong> Facebook Business, Google Business optimization, consistent branding across platforms</li>
+</ul>
+
+
+<!-- ══════════════════════════════════════
+     SECTION 07 — TERMS
+══════════════════════════════════════ -->
+<hr class="page-break" data-label="// Section 07">
+
+<div class="section-header">
+  <span class="section-num">07</span>
+  <h2>Terms &amp; <em>Conditions</em></h2>
+</div>
+
+<div class="terms-box">
+  <div class="terms-title">// Project Terms</div>
+  <p><strong>Scope:</strong> This proposal covers the deliverables listed in Section 02. Changes beyond two rounds of revisions or additions to scope will be quoted separately before work begins.</p>
+  <p><strong>Timeline:</strong> Estimated 7 days or less assumes timely content delivery and feedback from client. Delays in content or approvals may extend the timeline.</p>
+  <p><strong>Intellectual Property:</strong> Upon receipt of final payment, all design files, code, and site assets transfer fully to the client. Madrazall Built retains the right to list the project in its portfolio unless client requests otherwise in writing.</p>
+  <p><strong>Deposit:</strong> The 50% deposit is non-refundable once design work has begun. If a project is cancelled before design work starts, a full refund is issued.</p>
+  <p><strong>Hosting:</strong> Client is responsible for their own hosting and domain costs. Madrazall Built does not retain access to or control over client's hosting account after project completion.</p>
+  <p><strong>Validity:</strong> This proposal is valid for 30 days from the date issued. Pricing is subject to change after that window.</p>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     SECTION 08 — ABOUT / SIGNATURE
+══════════════════════════════════════ -->
+<hr class="page-break" data-label="// Section 08">
+
+<div class="section-header">
+  <span class="section-num">08</span>
+  <h2>About <em>Madrazall Built</em></h2>
+</div>
+
+<p>
+  Madrazall Built is a one-person freelance operation based in Rocky Hill, CT — run by Darcy Madrazo, 
+  a self-taught developer and operations specialist with 15+ years of experience solving real problems 
+  across industries including logistics, manufacturing, and small business. 
+</p>
+
+<p>
+  <strong>I build things that work, look like someone gave a damn, and don't need a manual to use.</strong> 
+  Every project is handled directly by me — no offshore contractors, no intern doing the design, no agency 
+  markup. You deal with one person start to finish.
+</p>
+
+<ul class="checklist" style="margin-bottom:2rem;">
+  <li>React, HTML/CSS/JS, Python, Node.js — whatever the job calls for</li>
+  <li>Small business focus — I know what a $1,000 site needs to do for you</li>
+  <li>Local to Central CT — same time zone, same area code, easy to reach</li>
+  <li>References available on request</li>
+</ul>
+
+<p style="margin-bottom:2rem;">
+  Questions before signing? Text or call <strong style="color:var(--white)">(860) 348-7466</strong> 
+  or email <strong style="color:var(--white)">madrazodarcy@gmail.com</strong>. 
+  I'll get back to you same day.
+</p>
+
+<p style="font-family:'Orbitron',monospace;font-size:0.75rem;color:var(--yellow-dim);letter-spacing:0.15em;margin-bottom:2rem;">
+  // READY TO MOVE FORWARD? SIGN BELOW.
+</p>
+
+<div class="sig-grid">
+  <div class="sig-block">
+    <div class="sig-label">// Client Signature</div>
+    <div class="sig-line"></div>
+    <div class="sig-name">Preferred Electric — Authorized Representative</div>
+  </div>
+  <div class="sig-block">
+    <div class="sig-label">// Madrazall Built</div>
+    <div class="sig-line"></div>
+    <div class="sig-name">Darcy Madrazo · madrazallbuilt.com</div>
+  </div>
+</div>
+
+<div class="sig-grid" style="margin-top:1.5rem;">
+  <div class="sig-block">
+    <div class="sig-label">// Date</div>
+    <div class="sig-line"></div>
+  </div>
+  <div class="sig-block">
+    <div class="sig-label">// Option Selected</div>
+    <div class="sig-line"></div>
+    <div class="sig-name">A · B · C  (circle one)</div>
+  </div>
+</div>
+
+
+<!-- FOOTER -->
+<div class="doc-footer">
+  <div class="footer-brand">⚡ MADRAZALL BUILT</div>
+  <div class="footer-meta">
+    madrazallbuilt.com · Rocky Hill, CT<br>
+    (860) 348-7466 · madrazodarcy@gmail.com
+  </div>
+</div>
+
+</body>
+</html>
